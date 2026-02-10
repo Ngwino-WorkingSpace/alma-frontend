@@ -8,12 +8,14 @@ import {
     ChevronDown, Package, AlertTriangle, LogOut, Menu, X
 } from 'lucide-react';
 import AlmaLogo from '@/app/components/AlmaLogo';
+import Toast, { ToastType } from '@/app/components/Toast';
 
 export default function DashboardLayoutClient({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
     const [user, setUser] = useState<any>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
     useEffect(() => {
         // Check for user in localStorage
@@ -37,8 +39,18 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
         { icon: Users, label: 'Team', href: '/dashboard/team' },
     ];
 
+    const handleFeatureClick = (feature: string) => {
+        setToast({ message: `${feature} feature coming soon!`, type: 'info' });
+    }
+
+    const handleProfileClick = () => {
+        setToast({ message: "Profile settings coming soon!", type: 'info' });
+    }
+
     return (
         <div className="flex h-screen bg-[#fafafa] overflow-hidden">
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
             {/* Sidebar */}
             <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
                 }`}>
@@ -75,7 +87,7 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
                                         href={item.href}
                                         onClick={() => setSidebarOpen(false)}
                                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                                            ? 'bg-[#4a7c59] text-white'
+                                            ? 'bg-[#4a7c59] text-white shadow-md shadow-[#4a7c59]/20'
                                             : 'text-gray-600 hover:bg-gray-50'
                                             }`}
                                     >
@@ -88,11 +100,17 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
 
                         <p className="px-3 mt-8 mb-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Settings</p>
                         <div className="space-y-1">
-                            <button className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                            <button
+                                onClick={() => handleFeatureClick('Settings')}
+                                className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                            >
                                 <Settings size={20} />
                                 Settings
                             </button>
-                            <button className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                            <button
+                                onClick={() => handleFeatureClick('Help Center')}
+                                className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                            >
                                 <HelpCircle size={20} />
                                 Help Center
                             </button>
@@ -101,7 +119,7 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
 
                     {/* User Profile */}
                     <div className="p-4 border-t border-gray-100">
-                        <div className="flex items-center gap-3 px-3 py-2 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3 px-3 py-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors" onClick={handleProfileClick}>
                             <div className="w-9 h-9 bg-gradient-to-br from-[#4a7c59] to-[#3d6849] rounded-full flex items-center justify-center text-white font-bold text-sm">
                                 {user?.name?.charAt(0).toUpperCase() || 'N'}
                             </div>
@@ -110,11 +128,12 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
                                 <p className="text-xs text-gray-500 truncate">{user?.email || 'user@alma.com'}</p>
                             </div>
                             <button
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     localStorage.removeItem('alma_user');
                                     router.push('/login');
                                 }}
-                                className="text-gray-400 hover:text-gray-600"
+                                className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-200 transition-colors"
                             >
                                 <LogOut size={18} />
                             </button>
@@ -148,15 +167,21 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
                             </h1>
                         </div>
                         <div className="flex items-center gap-4">
-                            <button className="relative p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                            <button
+                                onClick={() => handleFeatureClick('Notifications')}
+                                className="relative p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors active:scale-95"
+                            >
                                 <Bell size={20} />
-                                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
                             </button>
-                            <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-lg">
-                                <div className="w-8 h-8 bg-gradient-to-br from-[#4a7c59] to-[#3d6849] rounded-full flex items-center justify-center text-white font-bold text-xs">
+                            <div
+                                onClick={handleProfileClick}
+                                className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
+                            >
+                                <div className="w-8 h-8 bg-gradient-to-br from-[#4a7c59] to-[#3d6849] rounded-full flex items-center justify-center text-white font-bold text-xs shadow-sm">
                                     {user?.name?.charAt(0).toUpperCase() || 'N'}
                                 </div>
-                                <span className="text-sm font-semibold text-gray-900 capitalize">{user?.name || 'Niyobyose ISAAC'}</span>
+                                <span className="text-sm font-semibold text-gray-900 capitalize hidden sm:block">{user?.name || 'Niyobyose ISAAC'}</span>
                                 <ChevronDown size={16} className="text-gray-400" />
                             </div>
                         </div>
@@ -164,7 +189,7 @@ export default function DashboardLayoutClient({ children }: { children: React.Re
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 overflow-y-auto p-6">
+                <main className="flex-1 overflow-y-auto p-6 scroll-smooth">
                     {children}
                 </main>
             </div>

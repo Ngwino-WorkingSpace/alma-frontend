@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import {
     LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
     PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { Download, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import Toast, { ToastType } from '@/app/components/Toast';
 
 const analyticsData = [
     { name: 'Mon', revenue: 4000, expenses: 2400 },
@@ -23,19 +25,43 @@ const pieData = [
 ];
 
 export default function AnalyticsPage() {
+    const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+    const [dateRange, setDateRange] = useState('This Week');
+
+    const handleDateRange = () => {
+        const newRange = dateRange === 'This Week' ? 'This Month' : 'This Week';
+        setDateRange(newRange);
+        setToast({ message: `Viewing data for: ${newRange}`, type: 'success' });
+    };
+
+    const handleExport = () => {
+        setToast({ message: "Exporting analytics report...", type: 'info' });
+        setTimeout(() => {
+            setToast({ message: "Report exported successfully", type: 'success' });
+        }, 1500);
+    }
+
     return (
         <div className="space-y-6">
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900">Analytics Overview</h2>
                     <p className="text-gray-500 text-sm">Detailed insights into your operations</p>
                 </div>
                 <div className="flex gap-2">
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <button
+                        onClick={handleDateRange}
+                        className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors active:scale-95"
+                    >
                         <Calendar size={16} />
-                        This Week
+                        {dateRange}
                     </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-[#4a7c59] text-white rounded-lg text-sm font-medium hover:bg-[#3d6849] transition-colors shadow-sm">
+                    <button
+                        onClick={handleExport}
+                        className="flex items-center gap-2 px-3 py-2 bg-[#4a7c59] text-white rounded-lg text-sm font-medium hover:bg-[#3d6849] transition-colors shadow-sm active:scale-95"
+                    >
                         <Download size={16} />
                         Export Report
                     </button>
@@ -43,7 +69,7 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                     <p className="text-sm font-medium text-gray-500 mb-1">Total Spoilage Saved</p>
                     <h3 className="text-3xl font-bold text-gray-900 mb-2">$12,450</h3>
                     <div className="flex items-center gap-1 text-sm text-green-600 font-medium">
@@ -52,7 +78,7 @@ export default function AnalyticsPage() {
                         <span className="text-gray-400 font-normal ml-1">vs last month</span>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                     <p className="text-sm font-medium text-gray-500 mb-1">Efficiency Rate</p>
                     <h3 className="text-3xl font-bold text-gray-900 mb-2">94.2%</h3>
                     <div className="flex items-center gap-1 text-sm text-green-600 font-medium">
@@ -61,7 +87,7 @@ export default function AnalyticsPage() {
                         <span className="text-gray-400 font-normal ml-1">vs last month</span>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                     <p className="text-sm font-medium text-gray-500 mb-1">Alert Response Time</p>
                     <h3 className="text-3xl font-bold text-gray-900 mb-2">1.5 hrs</h3>
                     <div className="flex items-center gap-1 text-sm text-red-600 font-medium">

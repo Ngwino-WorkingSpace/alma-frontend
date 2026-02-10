@@ -5,9 +5,10 @@ import {
     LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts';
 import {
-    ArrowUpRight, ArrowDownRight, Package, Eye, MousePointer, Thermometer, ChevronDown
+    ArrowUpRight, ArrowDownRight, Package, Eye, MousePointer, Thermometer, ChevronDown, CheckCircle2
 } from 'lucide-react';
 import { SensorData, Alert } from '@/app/lib/data';
+import Toast, { ToastType } from '@/app/components/Toast';
 
 const trafficData = [
     { day: 'Mon', visitors: 3200 },
@@ -33,6 +34,8 @@ export default function DashboardPage() {
     const [sensors, setSensors] = useState<SensorData[]>([]);
     const [alerts, setAlerts] = useState<Alert[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [timeRange, setTimeRange] = useState('Last 7 days');
+    const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,12 +50,19 @@ export default function DashboardPage() {
                 setAlerts(alertsData);
             } catch (error) {
                 console.error("Error fetching dashboard data:", error);
+                setToast({ message: "Failed to load dashboard data", type: 'error' });
             } finally {
                 setIsLoading(false);
             }
         };
         fetchData();
     }, []);
+
+    const handleTimeRangeChange = () => {
+        const newRange = timeRange === 'Last 7 days' ? 'Last 30 days' : 'Last 7 days';
+        setTimeRange(newRange);
+        setToast({ message: `Updated view to ${newRange}`, type: 'success' });
+    }
 
     const stats = {
         totalNodes: sensors.length,
@@ -73,11 +83,13 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-fade-in">
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Total Nodes */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
                     <div className="flex items-center justify-between mb-4">
                         <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
                             <Package size={24} className="text-orange-500" />
@@ -85,15 +97,15 @@ export default function DashboardPage() {
                     </div>
                     <p className="text-sm text-gray-500 mb-1">Total Nodes</p>
                     <p className="text-3xl font-bold text-gray-900 mb-2">{stats.totalNodes}</p>
-                    <div className="flex items-center gap-1 text-sm">
-                        <ArrowUpRight size={16} className="text-green-500" />
-                        <span className="text-green-500 font-semibold">9.8%</span>
-                        <span className="text-gray-400">from last month</span>
+                    <div className="flex items-center gap-1 text-sm bg-green-50 w-fit px-2 py-1 rounded-lg">
+                        <ArrowUpRight size={16} className="text-green-600" />
+                        <span className="text-green-600 font-bold">9.8%</span>
+                        <span className="text-gray-500 text-xs">vs last month</span>
                     </div>
                 </div>
 
                 {/* Fresh Stock */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
                     <div className="flex items-center justify-between mb-4">
                         <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                             <Eye size={24} className="text-blue-500" />
@@ -101,15 +113,15 @@ export default function DashboardPage() {
                     </div>
                     <p className="text-sm text-gray-500 mb-1">Fresh Stock</p>
                     <p className="text-3xl font-bold text-gray-900 mb-2">{stats.fresh}</p>
-                    <div className="flex items-center gap-1 text-sm">
-                        <ArrowUpRight size={16} className="text-green-500" />
-                        <span className="text-green-500 font-semibold">5.9%</span>
-                        <span className="text-gray-400">from last month</span>
+                    <div className="flex items-center gap-1 text-sm bg-green-50 w-fit px-2 py-1 rounded-lg">
+                        <ArrowUpRight size={16} className="text-green-600" />
+                        <span className="text-green-600 font-bold">5.9%</span>
+                        <span className="text-gray-500 text-xs">vs last month</span>
                     </div>
                 </div>
 
                 {/* At Risk */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
                     <div className="flex items-center justify-between mb-4">
                         <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
                             <MousePointer size={24} className="text-green-500" />
@@ -117,15 +129,15 @@ export default function DashboardPage() {
                     </div>
                     <p className="text-sm text-gray-500 mb-1">At Risk Items</p>
                     <p className="text-3xl font-bold text-gray-900 mb-2">{stats.atRisk}</p>
-                    <div className="flex items-center gap-1 text-sm">
+                    <div className="flex items-center gap-1 text-sm bg-red-50 w-fit px-2 py-1 rounded-lg">
                         <ArrowDownRight size={16} className="text-red-500" />
-                        <span className="text-red-500 font-semibold">2.1%</span>
-                        <span className="text-gray-400">from last quarter</span>
+                        <span className="text-red-500 font-bold">2.1%</span>
+                        <span className="text-gray-500 text-xs">vs last quarter</span>
                     </div>
                 </div>
 
                 {/* Avg Temperature */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
                     <div className="flex items-center justify-between mb-4">
                         <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
                             <Thermometer size={24} className="text-purple-500" />
@@ -133,10 +145,10 @@ export default function DashboardPage() {
                     </div>
                     <p className="text-sm text-gray-500 mb-1">Avg Temperature</p>
                     <p className="text-3xl font-bold text-gray-900 mb-2">{stats.avgTemp}°C</p>
-                    <div className="flex items-center gap-1 text-sm">
-                        <ArrowDownRight size={16} className="text-red-500" />
-                        <span className="text-red-500 font-semibold">1.4%</span>
-                        <span className="text-gray-400">from last quarter</span>
+                    <div className="flex items-center gap-1 text-sm bg-purple-50 w-fit px-2 py-1 rounded-lg">
+                        <CheckCircle2 size={16} className="text-purple-600" />
+                        <span className="text-purple-600 font-bold">Optimal</span>
+                        <span className="text-gray-500 text-xs">range</span>
                     </div>
                 </div>
             </div>
@@ -148,10 +160,13 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 mb-1">Sensor Activity</h3>
-                            <p className="text-sm text-gray-500">Last 7 days</p>
+                            <p className="text-sm text-gray-500">Real-time monitoring</p>
                         </div>
-                        <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
-                            Last 7 days
+                        <button
+                            onClick={handleTimeRangeChange}
+                            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200"
+                        >
+                            {timeRange}
                             <ChevronDown size={16} />
                         </button>
                     </div>
@@ -160,7 +175,7 @@ export default function DashboardPage() {
                         <div className="flex items-center gap-1 text-sm mt-1">
                             <ArrowUpRight size={16} className="text-green-500" />
                             <span className="text-green-500 font-semibold">15%</span>
-                            <span className="text-gray-400">from last month</span>
+                            <span className="text-gray-400">increase in logic calls</span>
                         </div>
                     </div>
                     <div className="h-64">
@@ -177,7 +192,7 @@ export default function DashboardPage() {
                                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                                     }}
                                 />
-                                <Line type="monotone" dataKey="visitors" stroke="#4a7c59" strokeWidth={3} dot={{ fill: '#4a7c59', r: 4 }} />
+                                <Line type="monotone" dataKey="visitors" stroke="#4a7c59" strokeWidth={3} dot={{ fill: '#4a7c59', r: 4 }} activeDot={{ r: 6, strokeWidth: 0 }} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
@@ -188,16 +203,19 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 mb-1">Peak Hours</h3>
-                            <p className="text-sm text-gray-500">Last 7 days</p>
+                            <p className="text-sm text-gray-500">System load distribution</p>
                         </div>
-                        <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
-                            Last 7 days
+                        <button
+                            onClick={handleTimeRangeChange}
+                            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200"
+                        >
+                            {timeRange}
                             <ChevronDown size={16} />
                         </button>
                     </div>
                     <div className="mb-4">
                         <p className="text-3xl font-bold text-gray-900">4,231</p>
-                        <p className="text-sm text-gray-500 mt-1">visitors in peak hour</p>
+                        <p className="text-sm text-gray-500 mt-1">requests in peak hour</p>
                     </div>
                     <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
@@ -212,6 +230,7 @@ export default function DashboardPage() {
                                         borderRadius: '12px',
                                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                                     }}
+                                    cursor={{ fill: 'rgba(74, 124, 89, 0.1)' }}
                                 />
                                 <Bar dataKey="value" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
                             </BarChart>
@@ -224,8 +243,11 @@ export default function DashboardPage() {
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-lg font-bold text-gray-900">Storage Locations</h3>
-                    <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
-                        Last 7 days
+                    <button
+                        onClick={handleTimeRangeChange}
+                        className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200"
+                    >
+                        {timeRange}
                         <ChevronDown size={16} />
                     </button>
                 </div>
@@ -241,7 +263,7 @@ export default function DashboardPage() {
                         </thead>
                         <tbody>
                             {sensors.slice(0, 5).map((sensor) => (
-                                <tr key={sensor.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                                <tr key={sensor.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
                                     <td className="py-4 px-4">
                                         <div className="flex items-center gap-3">
                                             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>

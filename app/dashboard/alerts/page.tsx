@@ -1,12 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { AlertTriangle, CheckCircle2, XCircle, Bell, Filter } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, XCircle, Bell, Filter, Eye, MoreHorizontal } from 'lucide-react';
 import { Alert } from '@/app/lib/data';
+import Toast, { ToastType } from '@/app/components/Toast';
 
 export default function AlertsPage() {
     const [alerts, setAlerts] = useState<Alert[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+    const [filterSeverity, setFilterSeverity] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchAlerts = async () => {
@@ -16,12 +19,43 @@ export default function AlertsPage() {
                 setAlerts(data);
             } catch (error) {
                 console.error("Error fetching alerts:", error);
+                setToast({ message: "Error loading alerts", type: 'error' });
             } finally {
                 setIsLoading(false);
             }
         };
         fetchAlerts();
     }, []);
+
+    const filteredAlerts = filterSeverity
+        ? alerts.filter(a => a.severity === filterSeverity)
+        : alerts;
+
+    const handleResolve = (id: string) => {
+        // Simulate API call to resolve
+        setAlerts(prev => prev.filter(a => a.id !== id));
+        setToast({ message: "Alert resolved successfully", type: 'success' });
+    };
+
+    const handleMarkAllRead = () => {
+        setToast({ message: "All alerts marked as read", type: 'success' });
+    };
+
+    const handleFilterToggle = () => {
+        if (filterSeverity === null) setFilterSeverity('Critical');
+        else if (filterSeverity === 'Critical') setFilterSeverity('Warning');
+        else setFilterSeverity(null);
+
+        setToast({
+            message: filterSeverity === null ? "Showing Critical only" :
+                filterSeverity === 'Critical' ? "Showing Warnings only" : "Showing all alerts",
+            type: 'info'
+        });
+    };
+
+    const handleViewDetails = (id: string) => {
+        setToast({ message: `Viewing details for alert ${id}`, type: 'info' });
+    }
 
     if (isLoading) {
         return (
@@ -36,17 +70,28 @@ export default function AlertsPage() {
 
     return (
         <div className="space-y-6">
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
             <div className="flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900">System Alerts</h2>
                     <p className="text-gray-500 text-sm">Monitor and manage critical system notifications</p>
                 </div>
                 <div className="flex gap-2">
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <button
+                        onClick={handleFilterToggle}
+                        className={`flex items-center gap-2 px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${filterSeverity
+                                ? 'bg-gray-100 border-gray-300 text-gray-900'
+                                : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                            }`}
+                    >
                         <Filter size={16} />
-                        Filter Severity
+                        Filter Severity {filterSeverity ? `(${filterSeverity})` : ''}
                     </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <button
+                        onClick={handleMarkAllRead}
+                        className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors active:scale-95"
+                    >
                         <CheckCircle2 size={16} />
                         Mark All Read
                     </button>
@@ -54,9 +99,9 @@ export default function AlertsPage() {
             </div>
 
             <div className="space-y-4">
-                {alerts.length > 0 ? (
-                    alerts.map((alert) => (
-                        <div key={alert.id} className={`flex items-start gap-4 p-4 rounded-xl border ${alert.severity === 'Critical'
+                {filteredAlerts.length > 0 ? (
+                    filteredAlerts.map((alert) => (
+                        <div key={alert.id} className={`flex items-start gap-4 p-4 rounded-xl border animate-slide-up ${alert.severity === 'Critical'
                                 ? 'bg-red-50 border-red-100'
                                 : alert.severity === 'Warning'
                                     ? 'bg-orange-50 border-orange-100'
@@ -81,10 +126,18 @@ export default function AlertsPage() {
                                 </div>
                                 <p className="text-sm text-gray-700 mb-3">{alert.message}</p>
                                 <div className="flex gap-2">
-                                    <button className="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+                                    <button
+                                        onClick={() => handleViewDetails(alert.id)}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+                                    >
+                                        <Eye size={14} />
                                         View Details
                                     </button>
-                                    <button className="px-3 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+                                    <button
+                                        onClick={() => handleResolve(alert.id)}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+                                    >
+                                        <CheckCircle2 size={14} />
                                         Resolve
                                     </button>
                                 </div>
@@ -92,12 +145,20 @@ export default function AlertsPage() {
                         </div>
                     ))
                 ) : (
-                    <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-200">
+                    <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-200 animate-fade-in">
                         <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                             <CheckCircle2 size={32} />
                         </div>
                         <h3 className="text-lg font-bold text-gray-900 mb-1">All Systems Normal</h3>
-                        <p className="text-gray-500">No active alerts at this time.</p>
+                        <p className="text-gray-500">No active alerts matching your filter.</p>
+                        {filterSeverity && (
+                            <button
+                                onClick={() => setFilterSeverity(null)}
+                                className="mt-4 text-[#4a7c59] font-medium hover:underline text-sm"
+                            >
+                                Clear filters
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
