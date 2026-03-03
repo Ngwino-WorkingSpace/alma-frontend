@@ -66,7 +66,7 @@ export default function ServicesPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto w-full relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-600/20 backdrop-blur-md text-green-400 rounded-full text-[10px] font-black uppercase tracking-[0.4em] border border-green-500/20 mb-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-600/20 backdrop-blur-md text-green-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] border border-green-500/20 mb-8">
                         ALMA TECHNOLOGY
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter mb-6">
@@ -120,7 +120,7 @@ export default function ServicesPage() {
                                             </div>
                                         ))}
                                     </div>
-                                    <button className="px-10 py-5 bg-[#1a1a1a] text-white rounded-3xl font-black text-[13px] uppercase tracking-[0.2em] shadow-xl hover:bg-green-600 transition-all flex items-center gap-4">
+                                    <button className="px-10 py-5 bg-[#1a1a1a] text-white rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] shadow-xl hover:bg-green-600 transition-all flex items-center gap-4">
                                         Learn Technical Details <ChevronRight size={18} />
                                     </button>
                                 </div>
@@ -167,13 +167,13 @@ export default function ServicesPage() {
                     <div className="flex flex-wrap justify-center gap-6 pt-4">
                         <Link
                             href="/signup"
-                            className="px-12 py-6 bg-white text-green-700 rounded-3xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-slate-50 transition-all shadow-2xl active:scale-95"
+                            className="px-12 py-6 bg-white text-green-700 rounded-2xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-slate-50 transition-all shadow-2xl active:scale-95"
                         >
                             Get Started Now
                         </Link>
                         <Link
                             href="/contact"
-                            className="px-12 py-6 bg-transparent border-2 border-white/30 text-white rounded-3xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all active:scale-95"
+                            className="px-12 py-6 bg-transparent border-2 border-white/30 text-white rounded-2xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all active:scale-95"
                         >
                             Contact Sales
                         </Link>

@@ -1,119 +1,120 @@
 'use client';
 
+import React from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function ContactPage() {
     return (
-        <div className="bg-white min-h-screen">
-            <Navbar />
-
-            <main className="pt-40 pb-24 px-6">
-                <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-start">
-                    {/* Left Side: Info */}
-                    <div className="space-y-12">
+        <div className="bg-white min-h-screen font-[family-name:var(--font-jost)] pt-32 pb-20 px-6">
+            <div className="max-w-7xl mx-auto">
+                <div className="flex flex-col lg:flex-row items-start gap-16">
+                    {/* Left Side: Content & Info */}
+                    <div className="w-full lg:w-1/2 space-y-12">
                         <div className="space-y-6">
-                            <div className="inline-flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full text-green-700 text-xs font-black uppercase tracking-widest">
-                                <MessageSquare size={14} fill="currentColor" />
-                                Contact Us
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-600 rounded-2xl text-[10px] font-bold uppercase tracking-[0.4em] border border-green-100">
+                                <MessageSquare size={14} fill="currentColor" className="opacity-20" /> CONTACT US
                             </div>
-                            <h1 className="text-7xl font-black text-slate-900 leading-[0.9] tracking-tighter">
+                            <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 leading-[1.1] tracking-tighter">
                                 Let's <span className="text-green-600">Secure</span> <br />
-                                Your Supply Chain.
+                                Your Supply <br />
+                                Chain.
                             </h1>
-                            <p className="text-xl text-slate-500 font-medium max-w-lg leading-relaxed">
+                            <p className="text-lg text-slate-500 font-medium max-w-md leading-relaxed">
                                 Have questions about our sensor technology or marketplace? Our team is available 24/7 to help you optimize your agricultural flow.
                             </p>
                         </div>
 
-                        <div className="grid gap-8 pt-6">
-                            <div className="flex items-center gap-6 p-8 bg-slate-50 rounded-[32px] border border-slate-100 group hover:bg-green-600 transition-all duration-500">
-                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm group-hover:scale-110 transition-transform">
+                        {/* Contact Info Boxes */}
+                        <div className="space-y-4 max-w-lg">
+                            {/* Email */}
+                            <div className="flex items-center gap-6 p-6 bg-slate-50 border border-slate-100 rounded-[32px] group hover:bg-white hover:shadow-xl hover:shadow-green-900/5 transition-all duration-500 text-left">
+                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm border border-slate-100">
                                     <Mail size={24} />
                                 </div>
-                                <div className="group-hover:text-white transition-colors">
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Email Us</p>
-                                    <p className="text-xl font-bold">hello@alma.agri</p>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-1">Email Us</p>
+                                    <p className="text-xl font-semibold text-slate-900">hello@alma.agri</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-6 p-8 bg-slate-50 rounded-[32px] border border-slate-100 group hover:bg-green-600 transition-all duration-500">
-                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm group-hover:scale-110 transition-transform">
+                            {/* Call */}
+                            <div className="flex items-center gap-6 p-6 bg-slate-50 border border-slate-100 rounded-[32px] group hover:bg-white hover:shadow-xl hover:shadow-green-900/5 transition-all duration-500 text-left">
+                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm border border-slate-100">
                                     <Phone size={24} />
                                 </div>
-                                <div className="group-hover:text-white transition-colors">
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Call Us</p>
-                                    <p className="text-xl font-bold">+250 788 000 000</p>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-1">Call Us</p>
+                                    <p className="text-xl font-semibold text-slate-900">+250 788 000 000</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-6 p-8 bg-slate-50 rounded-[32px] border border-slate-100 group hover:bg-green-600 transition-all duration-500">
-                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm group-hover:scale-110 transition-transform">
+                            {/* Visit */}
+                            <div className="flex items-center gap-6 p-6 bg-slate-50 border border-slate-100 rounded-[32px] group hover:bg-white hover:shadow-xl hover:shadow-green-900/5 transition-all duration-500 text-left">
+                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm border border-slate-100">
                                     <MapPin size={24} />
                                 </div>
-                                <div className="group-hover:text-white transition-colors">
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Visit Us</p>
-                                    <p className="text-xl font-bold">Kigali Innovation City, Rwanda</p>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-1">Visit Us</p>
+                                    <p className="text-xl font-semibold text-slate-900">Kigali Innovation City, Rwanda</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Side: Form */}
-                    <div className="bg-slate-900 p-12 lg:p-16 rounded-[60px] shadow-2xl relative overflow-hidden">
-                        {/* Decorative Background Glow */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 blur-[100px] pointer-events-none"></div>
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-green-500/5 blur-[100px] pointer-events-none"></div>
+                    {/* Right Side: Contact Form Container */}
+                    <div className="w-full lg:w-[500px] xl:w-[580px]">
+                        <div className="bg-[#0a1118] p-10 md:p-14 rounded-[50px] shadow-2xl shadow-slate-900/30">
+                            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Full Name */}
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-bold text-green-500 uppercase tracking-[0.3em] ml-2">Full Name</label>
+                                        <input
+                                            type="text"
+                                            placeholder="John Doe"
+                                            className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition-all font-medium"
+                                        />
+                                    </div>
+                                    {/* Email Address */}
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-bold text-green-500 uppercase tracking-[0.3em] ml-2">Email Address</label>
+                                        <input
+                                            type="email"
+                                            placeholder="john@example.com"
+                                            className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition-all font-medium"
+                                        />
+                                    </div>
+                                </div>
 
-                        <form className="relative z-10 space-y-8">
-                            <div className="grid md:grid-cols-2 gap-8">
+                                {/* Subject */}
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-green-400 uppercase tracking-widest ml-1">Full Name</label>
+                                    <label className="text-[10px] font-bold text-green-500 uppercase tracking-[0.3em] ml-2">Subject</label>
                                     <input
                                         type="text"
-                                        placeholder="John Doe"
-                                        className="w-full h-16 px-8 bg-white/5 border border-white/10 rounded-2xl text-white font-medium placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                                        placeholder="General Inquiry"
+                                        className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition-all font-medium"
                                     />
                                 </div>
+
+                                {/* Your Message */}
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-green-400 uppercase tracking-widest ml-1">Email Address</label>
-                                    <input
-                                        type="email"
-                                        placeholder="john@example.com"
-                                        className="w-full h-16 px-8 bg-white/5 border border-white/10 rounded-2xl text-white font-medium placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
-                                    />
+                                    <label className="text-[10px] font-bold text-green-500 uppercase tracking-[0.3em] ml-2">Your Message</label>
+                                    <textarea
+                                        rows={6}
+                                        placeholder="Tell us about your needs..."
+                                        className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition-all font-medium resize-none shadow-inner"
+                                    ></textarea>
                                 </div>
-                            </div>
 
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black text-green-400 uppercase tracking-widest ml-1">Subject</label>
-                                <select className="w-full h-16 px-8 bg-white/5 border border-white/10 rounded-2xl text-white font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all appearance-none cursor-pointer">
-                                    <option className="bg-slate-900">General Inquiry</option>
-                                    <option className="bg-slate-900">Product Support</option>
-                                    <option className="bg-slate-900">Marketplace Partnership</option>
-                                    <option className="bg-slate-900">Technical Demo</option>
-                                </select>
-                            </div>
-
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black text-green-400 uppercase tracking-widest ml-1">Your Message</label>
-                                <textarea
-                                    rows={6}
-                                    placeholder="Tell us about your needs..."
-                                    className="w-full p-8 bg-white/5 border border-white/10 rounded-3xl text-white font-medium placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all resize-none"
-                                ></textarea>
-                            </div>
-
-                            <button className="w-full h-20 bg-green-600 text-white rounded-3xl font-black text-xs uppercase tracking-widest hover:bg-green-500 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-green-600/20 active:scale-[0.98]">
-                                Send Message <Send size={16} />
-                            </button>
-                        </form>
+                                {/* Submit Button */}
+                                <button className="w-full bg-green-600 hover:bg-green-500 text-white rounded-2xl py-6 font-bold text-[13px] uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 group active:scale-[0.98]">
+                                    SEND MESSAGE <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </main>
-
-            <Footer />
+            </div>
         </div>
     );
 }
