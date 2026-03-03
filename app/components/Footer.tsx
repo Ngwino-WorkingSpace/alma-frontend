@@ -1,129 +1,81 @@
 import Link from 'next/link';
-import { Leaf, Twitter, Linkedin, Instagram, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Linkedin, Twitter, Mail } from 'lucide-react';
+import AlmaLogo from './AlmaLogo';
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t border-[#1a3a2e]/10">
-            <div className="max-w-7xl mx-auto px-6 py-16">
-                <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <footer className="relative bg-white pt-24 pb-12 overflow-hidden border-t border-slate-100">
+            {/* Massive Background Text like the Simba Mockup */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                <span className="text-[25vw] font-black text-slate-50 leading-none opacity-50 tracking-tighter">
+                    ALMA
+                </span>
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
                     {/* Brand Column */}
-                    <div className="space-y-4">
-                        <Link href="/" className="flex items-center gap-3 group">
-                            <div className="bg-[#1a3a2e] p-2.5 rounded-2xl group-hover:bg-[#4a7c59] transition-all">
-                                <Leaf size={24} fill="white" className="text-white" />
-                            </div>
-                            <span className="text-2xl font-black text-[#1a3a2e] tracking-tight">ALMA</span>
-                        </Link>
-                        <p className="text-[#1a3a2e]/60 leading-relaxed">
-                            Unleash the full potential of your food supply chain with molecular-level preservation technology.
-                        </p>
-                        <div className="flex gap-3">
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-[#f5f5f5] hover:bg-[#4a7c59] rounded-full flex items-center justify-center transition-all group"
-                            >
-                                <Twitter size={18} className="text-[#1a3a2e] group-hover:text-white" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-[#f5f5f5] hover:bg-[#4a7c59] rounded-full flex items-center justify-center transition-all group"
-                            >
-                                <Linkedin size={18} className="text-[#1a3a2e] group-hover:text-white" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-[#f5f5f5] hover:bg-[#4a7c59] rounded-full flex items-center justify-center transition-all group"
-                            >
-                                <Instagram size={18} className="text-[#1a3a2e] group-hover:text-white" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-[#f5f5f5] hover:bg-[#4a7c59] rounded-full flex items-center justify-center transition-all group"
-                            >
-                                <Youtube size={18} className="text-[#1a3a2e] group-hover:text-white" />
-                            </a>
+                    <div className="space-y-8">
+                        <div className="space-y-4">
+                            <h2 className="text-2xl font-black text-green-700 tracking-tighter uppercase flex items-center gap-2">
+                                ALMA AGRICULTURE
+                            </h2>
+                            <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-400">
+                                FRESHNESS • QUALITY • SUSTAINABILITY
+                            </p>
                         </div>
                     </div>
 
-                    {/* Company Links */}
-                    <div>
-                        <h3 className="font-bold text-[#1a3a2e] mb-4 uppercase tracking-wider text-sm">Company</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link href="/" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/#about" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    About Us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/#contact" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Contact
-                                </Link>
-                            </li>
+                    {/* Shop Column */}
+                    <div className="space-y-8">
+                        <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-300">SHOP</h3>
+                        <ul className="space-y-4 font-bold text-sm text-slate-900">
+                            <li><Link href="/shop" className="hover:text-green-600 transition-colors">FRESH PRODUCE</Link></li>
+                            <li><Link href="/shop" className="hover:text-green-600 transition-colors">ORGANIC SEEDS</Link></li>
+                            <li><Link href="/shop" className="hover:text-green-600 transition-colors">FARM TOOLS</Link></li>
+                            <li><Link href="/shop" className="hover:text-green-600 transition-colors">LIVESTOCK</Link></li>
+                            <li><Link href="/shop" className="hover:text-green-600 transition-colors">AGROCHEMICALS</Link></li>
                         </ul>
                     </div>
 
-                    {/* Services */}
-                    <div>
-                        <h3 className="font-bold text-[#1a3a2e] mb-4 uppercase tracking-wider text-sm">Services</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link href="/#services" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Warehouse Monitoring
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/#services" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Supply Chain Tracking
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/#services" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Retail Integration
-                                </Link>
-                            </li>
+                    {/* Connect Column */}
+                    <div className="space-y-8">
+                        <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-300">CONNECT</h3>
+                        <ul className="space-y-4 font-bold text-sm text-slate-900">
+                            <li><a href="#" className="flex items-center gap-2 hover:text-green-600 transition-colors"><Instagram size={14} /> INSTAGRAM</a></li>
+                            <li><a href="#" className="flex items-center gap-2 hover:text-green-600 transition-colors"><Facebook size={14} /> FACEBOOK</a></li>
+                            <li><a href="#" className="flex items-center gap-2 hover:text-green-600 transition-colors"><Linkedin size={14} /> LINKEDIN</a></li>
+                            <li><a href="#" className="flex items-center gap-2 hover:text-green-600 transition-colors"><Twitter size={14} /> TWITTER</a></li>
+                            <li><a href="#" className="flex items-center gap-2 hover:text-green-600 transition-colors"><Mail size={14} /> EMAIL</a></li>
                         </ul>
                     </div>
 
-                    {/* Account */}
-                    <div>
-                        <h3 className="font-bold text-[#1a3a2e] mb-4 uppercase tracking-wider text-sm">Account</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link href="/login" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Login
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/signup" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Sign Up
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/dashboard" className="text-[#1a3a2e]/60 hover:text-[#4a7c59] transition-colors">
-                                    Dashboard
-                                </Link>
-                            </li>
-                        </ul>
+                    {/* Info Column */}
+                    <div className="space-y-8">
+                        <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-300">INFO</h3>
+                        <div className="space-y-6 font-bold text-sm text-slate-900">
+                            <div>
+                                <p className="leading-tight uppercase">AVAILABLE FOR</p>
+                                <p className="leading-tight uppercase">24/7 ONLINE ORDERS.</p>
+                            </div>
+                            <div>
+                                <p className="leading-tight uppercase">LOCATION</p>
+                                <p className="leading-tight uppercase">KIGALI, RWANDA</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-[#1a3a2e]/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-[#1a3a2e]/50">
-                        © 2026 ALMA Project. Contributing to SDG 2 & SDG 12.
+                <div className="pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                        © 2026 ALMA AGRICULTURE. ALL RIGHTS RESERVED.
                     </p>
-                    <div className="flex gap-6">
-                        <Link href="/dashboard" className="text-sm text-[#1a3a2e]/50 hover:text-[#4a7c59] transition-colors">
-                            Privacy Policy
-                        </Link>
-                        <Link href="/dashboard" className="text-sm text-[#1a3a2e]/50 hover:text-[#4a7c59] transition-colors">
-                            Terms of Service
-                        </Link>
+                    <div className="flex gap-4 items-center">
+                        <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                            ALMA DIGITAL EXPERIENCE V1.0
+                        </span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></div>
                     </div>
                 </div>
             </div>

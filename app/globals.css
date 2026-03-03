@@ -1,29 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #1a3a2e;
-  --primary-light: #4a7c59;
-  --accent: #fc7d00;
-  --background: #fdfdfc;
-  --foreground: #0f1712;
-  --card: #ffffff;
-  --card-foreground: #0f1712;
-  --muted: #f4f5f4;
-  --muted-foreground: #64746b;
-  --border: #e2e8e5;
-  --radius: 1.25rem;
+  --primary: #15803d; /* Rich Green */
+  --primary-light: #22c55e;
+  --primary-dark: #14532d;
+  --accent: #f97316; /* Orange accent */
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+  --card: #f8fafc;
+  --card-foreground: #1c1c1c;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --radius: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0c110e;
-    --foreground: #f2f7f4;
-    --card: #151b18;
-    --card-foreground: #f2f7f4;
-    --muted: #1c2520;
-    --muted-foreground: #a1b0a8;
-    --border: #26312a;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f8fafc;
+  --card: #111111;
+  --card-foreground: #f8fafc;
+  --muted: #1a1a1a;
+  --muted-foreground: #94a3b8;
+  --border: #262626;
 }
 
 * {
@@ -60,7 +59,10 @@ body {
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-br from-[#1a3a2e] to-[#4a7c59];
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .animate-slide-up {

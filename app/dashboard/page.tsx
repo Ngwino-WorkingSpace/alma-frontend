@@ -5,7 +5,7 @@ import {
     LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts';
 import {
-    ArrowUpRight, ArrowDownRight, Package, Eye, MousePointer, Thermometer, ChevronDown, CheckCircle2, RefreshCw, TrendingUp
+    ArrowUpRight, ArrowDownRight, Package, Thermometer, ChevronDown, CheckCircle2, RefreshCw, TrendingUp, AlertTriangle
 } from 'lucide-react';
 import { SensorData, Alert } from '@/app/lib/data';
 import Toast, { ToastType } from '@/app/components/Toast';
@@ -103,86 +103,86 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in pb-12">
             {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
             {/* Header with Refresh */}
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Dashboard Overview</h2>
-                    <p className="text-gray-500 text-sm">Real-time monitoring and analytics</p>
+                    <h2 className="text-3xl font-black text-[var(--foreground)] tracking-tight">Dashboard Overview</h2>
+                    <p className="text-[var(--muted-foreground)] font-medium">Real-time agricultural monitoring & analytics</p>
                 </div>
                 <button
                     onClick={handleRefresh}
                     disabled={isRefreshing}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors disabled:opacity-50"
+                    className="flex items-center justify-center gap-2 px-6 py-3 bg-[var(--card)] border border-[var(--border)] rounded-2xl text-sm font-bold text-[var(--foreground)] hover:bg-[var(--muted)] transition-all shadow-sm active:scale-95 disabled:opacity-50"
                 >
-                    <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
-                    Refresh
+                    <RefreshCw size={18} className={isRefreshing ? 'animate-spin' : ''} />
+                    Refresh Data
                 </button>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 duration-300 cursor-pointer">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
-                            <Package size={24} className="text-orange-500" />
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] hover:border-orange-500/30 transition-all hover:shadow-2xl hover:shadow-orange-500/5 group cursor-pointer">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="w-14 h-14 bg-orange-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Package size={28} className="text-orange-500" />
                         </div>
-                        <span className="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">LIVE</span>
+                        <span className="text-[10px] font-black text-orange-500 bg-orange-500/10 px-3 py-1 rounded-full uppercase tracking-widest">Live Status</span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-1">Total Nodes</p>
-                    <p className="text-3xl font-bold text-gray-900 mb-2">{stats.totalNodes}</p>
-                    <div className="flex items-center gap-1 text-sm bg-green-50 w-fit px-2 py-1 rounded-lg">
-                        <ArrowUpRight size={16} className="text-green-600" />
-                        <span className="text-green-600 font-bold">9.8%</span>
-                        <span className="text-gray-500 text-xs">vs last month</span>
+                    <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Total Nodes</p>
+                    <p className="text-4xl font-black text-[var(--foreground)] mb-3">{stats.totalNodes}</p>
+                    <div className="flex items-center gap-2 text-sm bg-green-500/10 w-fit px-3 py-1.5 rounded-xl border border-green-500/10">
+                        <ArrowUpRight size={18} className="text-green-500" />
+                        <span className="text-green-500 font-black">9.8%</span>
+                        <span className="text-[var(--muted-foreground)] text-xs font-bold uppercase tracking-tighter">vs last month</span>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 duration-300 cursor-pointer">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                            <Eye size={24} className="text-blue-500" />
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] hover:border-green-500/30 transition-all hover:shadow-2xl hover:shadow-green-500/5 group cursor-pointer">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <CheckCircle2 size={28} className="text-green-500" />
                         </div>
-                        <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded-full">ACTIVE</span>
+                        <span className="text-[10px] font-black text-green-500 bg-green-500/10 px-3 py-1 rounded-full uppercase tracking-widest">Operational</span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-1">Fresh Stock</p>
-                    <p className="text-3xl font-bold text-gray-900 mb-2">{stats.fresh}</p>
-                    <div className="flex items-center gap-1 text-sm bg-green-50 w-fit px-2 py-1 rounded-lg">
-                        <TrendingUp size={16} className="text-green-600" />
-                        <span className="text-green-600 font-bold">{((stats.fresh / stats.totalNodes) * 100).toFixed(1)}%</span>
-                        <span className="text-gray-500 text-xs">of total</span>
+                    <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Fresh Stock</p>
+                    <p className="text-4xl font-black text-[var(--foreground)] mb-3">{stats.fresh}</p>
+                    <div className="flex items-center gap-2 text-sm bg-green-500/10 w-fit px-3 py-1.5 rounded-xl border border-green-500/10">
+                        <TrendingUp size={18} className="text-green-500" />
+                        <span className="text-green-500 font-black">{((stats.fresh / stats.totalNodes) * 100).toFixed(1)}%</span>
+                        <span className="text-[var(--muted-foreground)] text-xs font-bold uppercase tracking-tighter">Healthy</span>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 duration-300 cursor-pointer">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-                            <MousePointer size={24} className="text-green-500" />
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] hover:border-red-500/30 transition-all hover:shadow-2xl hover:shadow-red-500/5 group cursor-pointer">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <AlertTriangle size={28} className="text-red-500" />
                         </div>
-                        <span className="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">ALERT</span>
+                        <span className="text-[10px] font-black text-red-500 bg-red-500/10 px-3 py-1 rounded-full uppercase tracking-widest">Critical</span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-1">At Risk Items</p>
-                    <p className="text-3xl font-bold text-gray-900 mb-2">{stats.atRisk}</p>
-                    <div className="flex items-center gap-1 text-sm bg-orange-50 w-fit px-2 py-1 rounded-lg">
-                        <ArrowDownRight size={16} className="text-orange-500" />
-                        <span className="text-orange-500 font-bold">Needs attention</span>
+                    <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">At Risk Items</p>
+                    <p className="text-4xl font-black text-[var(--foreground)] mb-3">{stats.atRisk}</p>
+                    <div className="flex items-center gap-2 text-sm bg-red-500/10 w-fit px-3 py-1.5 rounded-xl border border-red-500/10">
+                        <ArrowDownRight size={18} className="text-red-500" />
+                        <span className="text-red-500 font-black">Requires Action</span>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 duration-300 cursor-pointer">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                            <Thermometer size={24} className="text-purple-500" />
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] hover:border-purple-500/30 transition-all hover:shadow-2xl hover:shadow-purple-500/5 group cursor-pointer">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Thermometer size={28} className="text-purple-500" />
                         </div>
-                        <span className="text-xs font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded-full">AVG</span>
+                        <span className="text-[10px] font-black text-purple-500 bg-purple-500/10 px-3 py-1 rounded-full uppercase tracking-widest">Average</span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-1">Avg Temperature</p>
-                    <p className="text-3xl font-bold text-gray-900 mb-2">{stats.avgTemp}°C</p>
-                    <div className="flex items-center gap-1 text-sm bg-purple-50 w-fit px-2 py-1 rounded-lg">
-                        <CheckCircle2 size={16} className="text-purple-600" />
-                        <span className="text-purple-600 font-bold">Optimal</span>
+                    <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Avg Temperature</p>
+                    <p className="text-4xl font-black text-[var(--foreground)] mb-3">{stats.avgTemp}°C</p>
+                    <div className="flex items-center gap-2 text-sm bg-purple-500/10 w-fit px-3 py-1.5 rounded-xl border border-purple-500/10">
+                        <CheckCircle2 size={18} className="text-purple-500" />
+                        <span className="text-purple-500 font-black">Within Range</span>
                     </div>
                 </div>
             </div>
@@ -190,83 +190,110 @@ export default function DashboardPage() {
             {/* Charts Row */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Traffic Overview */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100">
-                    <div className="flex items-center justify-between mb-6">
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] shadow-sm">
+                    <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h3 className="text-lg font-bold text-gray-900 mb-1">Sensor Activity</h3>
-                            <p className="text-sm text-gray-500">Real-time monitoring</p>
+                            <h3 className="text-xl font-black text-[var(--foreground)] tracking-tight">Sensor Activity</h3>
+                            <p className="text-sm text-[var(--muted-foreground)] font-medium">Network load distribution</p>
                         </div>
                         <button
                             onClick={handleTimeRangeChange}
-                            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200 active:scale-95"
+                            className="flex items-center gap-2 px-4 py-2 text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] hover:text-green-600 hover:bg-[var(--muted)] rounded-xl transition-all border border-[var(--border)] active:scale-95"
                         >
-                            {timeRange === '7days' ? 'Last 7 days' : 'Last 30 days'}
-                            <ChevronDown size={16} />
+                            {timeRange === '7days' ? '7 Days' : '30 Days'}
+                            <ChevronDown size={14} />
                         </button>
                     </div>
-                    <div className="mb-4">
-                        <p className="text-3xl font-bold text-gray-900">{avgVisitors.toLocaleString()}</p>
-                        <div className="flex items-center gap-1 text-sm mt-1">
+                    <div className="mb-8">
+                        <p className="text-4xl font-black text-[var(--foreground)] tracking-tighter">{avgVisitors.toLocaleString()}</p>
+                        <div className="flex items-center gap-2 text-xs mt-2 font-black uppercase tracking-widest">
                             <ArrowUpRight size={16} className="text-green-500" />
-                            <span className="text-green-500 font-semibold">15%</span>
-                            <span className="text-gray-400">average daily calls</span>
+                            <span className="text-green-500">15% increase</span>
+                            <span className="text-[var(--muted-foreground)]">avg daily calls</span>
                         </div>
                     </div>
-                    <div className="h-64">
+                    <div className="h-72">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={trafficData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 12 }} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 12 }} />
+                                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                                <XAxis
+                                    dataKey="day"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fill: 'var(--muted-foreground)', fontSize: 10, fontWeight: 700 }}
+                                />
+                                <YAxis
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fill: 'var(--muted-foreground)', fontSize: 10, fontWeight: 700 }}
+                                />
                                 <Tooltip
                                     contentStyle={{
-                                        backgroundColor: 'white',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '12px',
-                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                        backgroundColor: 'var(--card)',
+                                        border: '1px solid var(--border)',
+                                        borderRadius: '20px',
+                                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+                                        color: 'var(--foreground)'
                                     }}
+                                    itemStyle={{ color: 'var(--foreground)', fontWeight: 800 }}
                                 />
-                                <Line type="monotone" dataKey="visitors" stroke="#4a7c59" strokeWidth={3} dot={{ fill: '#4a7c59', r: 4 }} activeDot={{ r: 6, strokeWidth: 0 }} />
+                                <Line
+                                    type="monotone"
+                                    dataKey="visitors"
+                                    stroke="#22c55e"
+                                    strokeWidth={4}
+                                    dot={{ fill: '#22c55e', r: 4, strokeWidth: 2, stroke: 'var(--card)' }}
+                                    activeDot={{ r: 8, strokeWidth: 0 }}
+                                />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
                 {/* Peak Hours */}
-                <div className="bg-white rounded-2xl p-6 border border-gray-100">
-                    <div className="flex items-center justify-between mb-6">
+                <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] shadow-sm">
+                    <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h3 className="text-lg font-bold text-gray-900 mb-1">Peak Hours</h3>
-                            <p className="text-sm text-gray-500">System load distribution</p>
+                            <h3 className="text-xl font-black text-[var(--foreground)] tracking-tight">System Performance</h3>
+                            <p className="text-sm text-[var(--muted-foreground)] font-medium">Hourly request distribution</p>
                         </div>
                         <button
                             onClick={handleTimeRangeChange}
-                            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200 active:scale-95"
+                            className="flex items-center gap-2 px-4 py-2 text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] hover:text-purple-600 hover:bg-[var(--muted)] rounded-xl transition-all border border-[var(--border)] active:scale-95"
                         >
-                            {timeRange === '7days' ? 'Last 7 days' : 'Last 30 days'}
-                            <ChevronDown size={16} />
+                            {timeRange === '7days' ? '7 Days' : '30 Days'}
+                            <ChevronDown size={14} />
                         </button>
                     </div>
-                    <div className="mb-4">
-                        <p className="text-3xl font-bold text-gray-900">{Math.max(...peakHoursData.map(d => d.value)).toLocaleString()}</p>
-                        <p className="text-sm text-gray-500 mt-1">requests in peak hour</p>
+                    <div className="mb-8">
+                        <p className="text-4xl font-black text-[var(--foreground)] tracking-tighter">{Math.max(...peakHoursData.map(d => d.value)).toLocaleString()}</p>
+                        <p className="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] mt-2">Peak hourly throughput</p>
                     </div>
-                    <div className="h-64">
+                    <div className="h-72">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={peakHoursData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
-                                <XAxis dataKey="hour" axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 12 }} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 12 }} />
+                                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                                <XAxis
+                                    dataKey="hour"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fill: 'var(--muted-foreground)', fontSize: 10, fontWeight: 700 }}
+                                />
+                                <YAxis
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fill: 'var(--muted-foreground)', fontSize: 10, fontWeight: 700 }}
+                                />
                                 <Tooltip
                                     contentStyle={{
-                                        backgroundColor: 'white',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '12px',
-                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                        backgroundColor: 'var(--card)',
+                                        border: '1px solid var(--border)',
+                                        borderRadius: '20px',
+                                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
                                     }}
-                                    cursor={{ fill: 'rgba(74, 124, 89, 0.1)' }}
+                                    cursor={{ fill: 'var(--muted)', radius: 12 }}
                                 />
-                                <Bar dataKey="value" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+                                <Bar dataKey="value" fill="#8b5cf6" radius={[12, 12, 0, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
@@ -274,46 +301,51 @@ export default function DashboardPage() {
             </div>
 
             {/* Storage Locations Table */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-                <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-bold text-gray-900">Storage Locations</h3>
-                    <button
-                        onClick={handleTimeRangeChange}
-                        className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors border border-gray-200 active:scale-95"
-                    >
-                        {timeRange === '7days' ? 'Last 7 days' : 'Last 30 days'}
-                        <ChevronDown size={16} />
-                    </button>
+            <div className="bg-[var(--card)] rounded-[32px] p-8 border border-[var(--border)] shadow-sm">
+                <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-xl font-black text-[var(--foreground)] tracking-tight">Storage Facility Health</h3>
+                    <div className="flex gap-2">
+                        <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-green-500/10">All Systems Nominal</span>
+                    </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
                         <thead>
-                            <tr className="border-b border-gray-100">
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Temperature</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Humidity</th>
+                            <tr className="border-b border-[var(--border)]">
+                                <th className="text-left py-4 px-4 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Location</th>
+                                <th className="text-left py-4 px-4 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Status</th>
+                                <th className="text-left py-4 px-4 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Temp</th>
+                                <th className="text-left py-4 px-4 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Humidity</th>
+                                <th className="text-left py-4 px-4 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Molecular Index</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="divide-y divide-[var(--border)]">
                             {sensors.slice(0, 5).map((sensor) => (
-                                <tr key={sensor.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <td className="py-4 px-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                                            <span className="font-medium text-gray-900">{sensor.name}</span>
+                                <tr key={sensor.id} className="hover:bg-[var(--muted)]/50 transition-colors group">
+                                    <td className="py-5 px-4 font-bold text-[var(--foreground)]">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                            {sensor.name}
                                         </div>
                                     </td>
-                                    <td className="py-4 px-4">
-                                        <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${sensor.status === 'Fresh' ? 'bg-green-50 text-green-700' :
-                                            sensor.status === 'At Risk' ? 'bg-orange-50 text-orange-700' :
-                                                'bg-red-50 text-red-700'
+                                    <td className="py-5 px-4">
+                                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm ${sensor.status === 'Fresh' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
+                                            sensor.status === 'At Risk' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' :
+                                                'bg-red-500/10 text-red-500 border-red-500/20'
                                             }`}>
                                             {sensor.status}
                                         </span>
                                     </td>
-                                    <td className="py-4 px-4 text-gray-600 font-medium">{sensor.temperature}°C</td>
-                                    <td className="py-4 px-4 text-gray-600">{sensor.humidity}%</td>
+                                    <td className="py-5 px-4 font-black text-[var(--foreground)]">{sensor.temperature}°C</td>
+                                    <td className="py-5 px-4 font-bold text-[var(--muted-foreground)]">{sensor.humidity}%</td>
+                                    <td className="py-5 px-4">
+                                        <div className="w-full max-w-[100px] h-2 bg-[var(--muted)] rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full ${sensor.status === 'Fresh' ? 'bg-green-500' : 'bg-orange-500'}`}
+                                                style={{ width: `${Math.random() * 40 + 60}%` }}
+                                            ></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
