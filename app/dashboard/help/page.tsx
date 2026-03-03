@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Book, MessageCircle, Mail, Phone, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import {
+    Search, Book, MessageCircle, Mail, Phone,
+    ExternalLink, ChevronDown, ChevronUp, PlayCircle,
+    ShieldCheck, HelpCircle, Store, Cpu
+} from 'lucide-react';
 import Toast, { ToastType } from '@/app/components/Toast';
 
 export default function HelpPage() {
@@ -11,197 +15,177 @@ export default function HelpPage() {
 
     const faqs = [
         {
-            question: "How do I add a new storage location?",
-            answer: "Navigate to the Inventory page and click the 'Add Item' button in the top right. Fill in the required information including location name, type, and initial sensor readings."
+            question: "How do I integrate ALMA sensors into Simba SuperMarket shelves?",
+            answer: "Visit the 'Integrations' tab in Settings to connect your Simba API key. Then, go to Inventory > Add Item and select 'Simba - Point of Sale' as the storage type."
         },
         {
-            question: "What do the different alert severities mean?",
-            answer: "Critical alerts require immediate attention (e.g., spoilage detected). Warning alerts indicate potential issues that should be monitored. Info alerts are general notifications about system status."
+            question: "What is the 72-hour early warning system?",
+            answer: "Our AI model predicts spoilage 3 days before it's visible. You'll receive a 'Warning' alert when molecular shifts indicate the start of degradation."
         },
         {
-            question: "How accurate is the spoilage prediction?",
-            answer: "Our AI model achieves 94% accuracy in predicting spoilage 72 hours in advance. The system uses molecular-level sensors combined with machine learning to detect early signs of degradation."
+            question: "How do I recalibrate sensors for high-moisture areas?",
+            answer: "Open the specific sensor view, click 'Calibrate', and select the 'Fruit & Veg' preset. This adjusts the sensitivity for natural condensation."
         },
         {
-            question: "Can I export my data?",
-            answer: "Yes! Go to the Analytics page and click the 'Export Report' button. You can export data in CSV, Excel, or PDF formats for any custom date range."
-        },
-        {
-            question: "How do I invite team members?",
-            answer: "Visit the Team page and click 'Invite Member'. Enter their email address and select their role. They'll receive an invitation email with setup instructions."
-        },
-        {
-            question: "What happens when a sensor goes offline?",
-            answer: "You'll receive an immediate alert. The system will continue to display the last known readings and estimate conditions based on historical patterns until the sensor reconnects."
-        },
-        {
-            question: "How do I change my notification preferences?",
-            answer: "Go to Settings > Notifications. You can customize email and push notifications, set alert thresholds, and configure which events trigger notifications."
-        },
-        {
-            question: "Is my data encrypted?",
-            answer: "Yes, all data is encrypted both in transit (TLS 1.3) and at rest (AES-256). We also use blockchain verification for supply chain data to ensure tamper-proof records."
+            question: "Can I share analytics with my retail partners?",
+            answer: "Yes. From the Analytics page, click 'Export' and select 'Partner Format'. This generates a simplified report optimized for store managers."
         }
     ];
 
     const resources = [
         {
-            title: "Getting Started Guide",
-            description: "Learn the basics of ALMA and set up your first storage location",
-            icon: Book,
-            link: "#"
+            title: "Simba Integration Guide",
+            description: "Step-by-step setup for Simba SuperMarket retail endpoints",
+            icon: Store,
+            color: 'text-[#fc7d00]',
+            bg: 'bg-[#fc7d00]/10'
         },
         {
-            title: "API Documentation",
-            description: "Integrate ALMA with your existing systems",
-            icon: ExternalLink,
-            link: "#"
+            title: "Sensor Calibration",
+            description: "Advanced techniques for molecular monitoring accuracy",
+            icon: Cpu,
+            color: 'text-blue-600',
+            bg: 'bg-blue-50'
         },
         {
-            title: "Video Tutorials",
-            description: "Watch step-by-step guides for common tasks",
-            icon: ExternalLink,
-            link: "#"
+            title: "ALMA University",
+            description: "Certified training courses for your operations team",
+            icon: PlayCircle,
+            color: 'text-purple-600',
+            bg: 'bg-purple-50'
         },
         {
-            title: "Best Practices",
-            description: "Optimize your food preservation workflow",
-            icon: Book,
-            link: "#"
+            title: "Compliance Forms",
+            description: "FDA and International food safety documentation",
+            icon: ShieldCheck,
+            color: 'text-[#4a7c59]',
+            bg: 'bg-[#4a7c59]/10'
         }
     ];
 
     const handleContactSubmit = (method: string) => {
-        setToast({ message: `Opening ${method} support...`, type: 'info' });
+        setToast({ message: `Initiating secure ${method} tunnel...`, type: 'info' });
     };
 
-    const filteredFaqs = faqs.filter(faq =>
-        faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
     return (
-        <div className="space-y-6 max-w-5xl">
+        <div className="space-y-12 max-w-6xl mx-auto pb-20">
             {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-            <div>
-                <h2 className="text-2xl font-bold text-gray-900">Help Center</h2>
-                <p className="text-gray-500 text-sm">Find answers and get support</p>
-            </div>
-
-            {/* Search */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-8">
-                <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">How can we help you?</h3>
-                    <p className="text-gray-500">Search our knowledge base or browse topics below</p>
-                </div>
-                <div className="relative max-w-2xl mx-auto">
-                    <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <div className="text-center space-y-4 max-w-2xl mx-auto pb-8">
+                <h2 className="text-4xl font-black text-[var(--primary)]">Knowledge Center</h2>
+                <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-widest text-[10px]">Find answers, learn the platform, or get dedicated support</p>
+                <div className="relative mt-8">
+                    <Search size={22} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search for help articles..."
-                        className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl text-base focus:outline-none focus:border-[#4a7c59] focus:ring-4 focus:ring-[#4a7c59]/10 transition-all"
+                        placeholder="Search for articles, guides, or troubleshooting steps..."
+                        className="w-full pl-14 pr-6 py-5 bg-[var(--card)] border-2 border-[var(--border)] rounded-[24px] text-lg font-black focus:outline-none focus:border-[var(--primary-light)] focus:shadow-2xl focus:shadow-[var(--primary-light)]/10 transition-all text-[var(--primary)] placeholder:text-[var(--muted-foreground)]/40"
                     />
                 </div>
             </div>
 
-            {/* Quick Resources */}
-            <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Resources</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                    {resources.map((resource, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setToast({ message: `Opening ${resource.title}...`, type: 'info' })}
-                            className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg transition-all text-left group"
-                        >
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-[#e8f0ec] rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#4a7c59] transition-colors">
-                                    <resource.icon size={24} className="text-[#4a7c59] group-hover:text-white transition-colors" />
-                                </div>
-                                <div className="flex-1">
-                                    <h4 className="font-bold text-gray-900 mb-1 group-hover:text-[#4a7c59] transition-colors">{resource.title}</h4>
-                                    <p className="text-sm text-gray-500">{resource.description}</p>
-                                </div>
-                                <ExternalLink size={18} className="text-gray-400 group-hover:text-[#4a7c59] transition-colors" />
-                            </div>
-                        </button>
-                    ))}
-                </div>
+            {/* Quick Support Toggles */}
+            <div className="grid md:grid-cols-4 gap-4">
+                {resources.map((resource, index) => (
+                    <button
+                        key={index}
+                        className="bg-[var(--card)] p-6 rounded-[28px] border border-[var(--border)] hover:border-[var(--primary-light)]/20 hover:shadow-2xl hover:-translate-y-1 transition-all text-left flex flex-col gap-4 group"
+                    >
+                        <div className={`w-14 h-14 ${resource.bg} ${resource.color} rounded-2xl flex items-center justify-center shadow-sm`}>
+                            <resource.icon size={28} />
+                        </div>
+                        <div>
+                            <h4 className="font-black text-[var(--primary)] mb-1 group-hover:text-[var(--primary-light)] transition-colors">{resource.title}</h4>
+                            <p className="text-[10px] text-[var(--muted-foreground)] font-bold uppercase tracking-wider line-clamp-2 leading-relaxed">{resource.description}</p>
+                        </div>
+                    </button>
+                ))}
             </div>
 
-            {/* FAQs */}
-            <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h3>
-                <div className="space-y-3">
-                    {filteredFaqs.length > 0 ? (
-                        filteredFaqs.map((faq, index) => (
-                            <div key={index} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="grid lg:grid-cols-3 gap-12">
+                {/* FAQs */}
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="flex items-center gap-2 mb-2">
+                        <HelpCircle size={20} className="text-[var(--primary-light)]" />
+                        <h3 className="text-xl font-black text-[var(--primary)]">Frequently Asked Questions</h3>
+                    </div>
+                    <div className="space-y-4">
+                        {faqs.map((faq, index) => (
+                            <div key={index} className="bg-[var(--card)] rounded-[24px] border border-[var(--border)] overflow-hidden hover:border-[var(--primary-light)]/30 transition-all shadow-sm">
                                 <button
                                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                                    className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
+                                    className="w-full px-8 py-6 flex items-center justify-between text-left group"
                                 >
-                                    <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                                    <span className="font-bold text-[var(--primary)] group-hover:text-[var(--primary-light)] transition-colors">{faq.question}</span>
                                     {expandedFaq === index ? (
-                                        <ChevronUp size={20} className="text-gray-400 shrink-0" />
+                                        <ChevronUp size={20} className="text-[var(--primary-light)]" />
                                     ) : (
-                                        <ChevronDown size={20} className="text-gray-400 shrink-0" />
+                                        <ChevronDown size={20} className="text-[var(--muted-foreground)]/30 group-hover:text-[var(--primary-light)]" />
                                     )}
                                 </button>
                                 {expandedFaq === index && (
-                                    <div className="px-6 pb-4 text-gray-600 animate-slide-up">
+                                    <div className="px-8 pb-8 text-gray-500 font-medium text-sm leading-relaxed animate-in slide-in-from-top-2 duration-300">
                                         {faq.answer}
                                     </div>
                                 )}
                             </div>
-                        ))
-                    ) : (
-                        <div className="bg-white rounded-xl border border-gray-100 p-8 text-center">
-                            <p className="text-gray-500">No results found for "{searchQuery}"</p>
-                            <button
-                                onClick={() => setSearchQuery('')}
-                                className="mt-3 text-[#4a7c59] font-medium hover:underline"
-                            >
-                                Clear search
-                            </button>
-                        </div>
-                    )}
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            {/* Contact Support */}
-            <div className="bg-gradient-to-br from-[#4a7c59] to-[#3d6849] rounded-2xl p-8 text-white">
-                <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold mb-2">Still need help?</h3>
-                    <p className="text-white/80">Our support team is here to assist you</p>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                    <button
-                        onClick={() => handleContactSubmit('Live Chat')}
-                        className="bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-xl p-6 transition-all text-center border border-white/20"
-                    >
-                        <MessageCircle size={32} className="mx-auto mb-3" />
-                        <p className="font-bold mb-1">Live Chat</p>
-                        <p className="text-sm text-white/80">Average response: 2 min</p>
-                    </button>
-                    <button
-                        onClick={() => handleContactSubmit('Email')}
-                        className="bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-xl p-6 transition-all text-center border border-white/20"
-                    >
-                        <Mail size={32} className="mx-auto mb-3" />
-                        <p className="font-bold mb-1">Email Support</p>
-                        <p className="text-sm text-white/80">support@alma.com</p>
-                    </button>
-                    <button
-                        onClick={() => handleContactSubmit('Phone')}
-                        className="bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-xl p-6 transition-all text-center border border-white/20"
-                    >
-                        <Phone size={32} className="mx-auto mb-3" />
-                        <p className="font-bold mb-1">Phone Support</p>
-                        <p className="text-sm text-white/80">+250 788 123 456</p>
-                    </button>
+                {/* Contact Support Sidebar */}
+                <div className="space-y-6">
+                    <div className="bg-[#1a3a2e] rounded-[32px] p-8 text-white relative overflow-hidden shadow-2xl">
+                        {/* Decorative background circle */}
+                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#4a7c59]/20 rounded-full blur-3xl" />
+
+                        <div className="relative z-10 space-y-6">
+                            <div>
+                                <h3 className="text-2xl font-black mb-2">Still stuck?</h3>
+                                <p className="text-white/60 text-sm font-medium">Our global support team is available 24/7 for critical issues.</p>
+                            </div>
+
+                            <div className="space-y-3">
+                                <button
+                                    onClick={() => handleContactSubmit('Live Chat')}
+                                    className="w-full py-4 bg-white text-[#1a3a2e] rounded-2xl font-black text-sm flex items-center justify-center gap-3 hover:bg-[#4a7c59] hover:text-white transition-all shadow-xl shadow-black/20"
+                                >
+                                    <MessageCircle size={18} />
+                                    Live Assistance
+                                </button>
+                                <button
+                                    onClick={() => handleContactSubmit('Call')}
+                                    className="w-full py-4 bg-white/10 text-white rounded-2xl font-black text-sm flex items-center justify-center gap-3 hover:bg-white/20 transition-all border border-white/10"
+                                >
+                                    <Phone size={18} />
+                                    Call Hotline
+                                </button>
+                                <button
+                                    onClick={() => handleContactSubmit('Email')}
+                                    className="w-full py-4 bg-transparent text-white/70 rounded-2xl font-black text-sm hover:text-white transition-all"
+                                >
+                                    Send an Email
+                                </button>
+                            </div>
+
+                            <div className="pt-6 border-t border-white/10 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-white/40">
+                                <span>Wait time: ~2m</span>
+                                <span>Priority: Business</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="p-8 border-2 border-dashed border-gray-100 rounded-[32px] flex flex-col items-center text-center gap-4">
+                        <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400">
+                            <Book size={20} />
+                        </div>
+                        <div>
+                            <p className="font-black text-[#1a3a2e] text-sm">Download SDK</p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1 underline cursor-pointer">View on GitHub</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

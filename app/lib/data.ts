@@ -10,6 +10,7 @@ export interface SensorData {
   gasLevel: GasLevel;
   timestamp: string;
   status: FoodStatus;
+  location?: string;
 }
 
 export interface FoodItem {
@@ -47,84 +48,102 @@ export const getStatusFromSensors = (temp: number, humidity: number, gas: GasLev
 
 export const mockSensors: SensorData[] = [
   {
-    id: 's1',
-    name: 'Cold Storage A',
-    type: 'Warehouse',
-    temperature: 4.2,
-    humidity: 45,
+    id: 's-simba-01',
+    name: 'Main Produce Display',
+    type: 'Retail',
+    temperature: 14.5,
+    humidity: 62,
     gasLevel: 'Low',
+    location: 'Simba Town Center',
     timestamp: new Date().toISOString(),
     status: 'Fresh'
   },
   {
-    id: 's2',
-    name: 'Transport Truck #42',
-    type: 'Transport',
-    temperature: 18.5,
-    humidity: 65,
+    id: 's-simba-02',
+    name: 'Dairy Cold Room',
+    type: 'Warehouse',
+    temperature: 2.8,
+    humidity: 35,
+    gasLevel: 'Low',
+    location: 'Simba Town Center',
+    timestamp: new Date().toISOString(),
+    status: 'Fresh'
+  },
+  {
+    id: 's-simba-03',
+    name: 'Gisenyi Hub Silo',
+    type: 'Farm',
+    temperature: 24.5,
+    humidity: 78,
     gasLevel: 'Medium',
+    location: 'Simba Gisenyi',
     timestamp: new Date().toISOString(),
     status: 'At Risk'
   },
   {
-    id: 's3',
-    name: 'Local Farm Silo 1',
-    type: 'Farm',
-    temperature: 28.1,
-    humidity: 82,
+    id: 's-simba-04',
+    name: 'Delivery Van #09',
+    type: 'Transport',
+    temperature: 29.2,
+    humidity: 88,
     gasLevel: 'High',
+    location: 'In Transit',
     timestamp: new Date().toISOString(),
     status: 'Spoiled'
-  },
-  {
-    id: 's4',
-    name: 'Pantry Shelf 2',
-    type: 'Retail',
-    temperature: 22.0,
-    humidity: 50,
-    gasLevel: 'Low',
-    timestamp: new Date().toISOString(),
-    status: 'Fresh'
   }
 ];
 
 export const mockFoodItems: FoodItem[] = [
   {
-    id: 'f1',
-    name: 'Organic Strawberries',
-    category: 'Fruit',
-    addedDate: '2026-02-08T10:00:00Z',
-    expiryDate: '2026-02-15T10:00:00Z',
-    currentStorageId: 's1',
-    spoilageRisk: 15,
+    id: 'f-simba-01',
+    name: 'Fresh Cucumbers',
+    category: 'Vegetables',
+    addedDate: '2026-03-01T10:00:00Z',
+    expiryDate: '2026-03-10T10:00:00Z',
+    currentStorageId: 's-simba-01',
+    spoilageRisk: 5,
     status: 'Fresh',
     conditions: {
-      idealTemp: [2, 5],
-      idealHumidity: [40, 50]
+      idealTemp: [10, 15],
+      idealHumidity: [60, 70]
     }
   },
   {
-    id: 'f2',
-    name: 'Fresh Milk',
+    id: 'f-simba-02',
+    name: 'Organic Beans',
+    category: 'Organic Produce',
+    addedDate: '2026-03-02T08:00:00Z',
+    expiryDate: '2026-03-12T08:00:00Z',
+    currentStorageId: 's-simba-01',
+    spoilageRisk: 12,
+    status: 'Fresh',
+    conditions: {
+      idealTemp: [12, 18],
+      idealHumidity: [50, 60]
+    }
+  },
+  {
+    id: 'f-simba-03',
+    name: 'Fresh Milk 1L',
     category: 'Dairy',
-    addedDate: '2026-02-09T08:00:00Z',
-    expiryDate: '2026-02-16T08:00:00Z',
-    currentStorageId: 's2',
-    spoilageRisk: 65,
-    status: 'At Risk',
+    addedDate: '2026-03-02T12:00:00Z',
+    expiryDate: '2026-03-09T12:00:00Z',
+    currentStorageId: 's-simba-02',
+    spoilageRisk: 8,
+    status: 'Fresh',
     conditions: {
       idealTemp: [1, 4],
       idealHumidity: [30, 40]
     }
   },
   {
-    id: 'f3',
+    id: 'f-simba-04',
     name: 'Baby Spinach',
     category: 'Vegetables',
-    addedDate: '2026-02-05T12:00:00Z',
-    expiryDate: '2026-02-12T12:00:00Z',
-    currentStorageId: 's3',
-    spoilageRisk: 95,
+    addedDate: '2026-02-25T12:00:00Z',
+    expiryDate: '2026-03-04T12:00:00Z',
+    currentStorageId: 's-simba-04',
+    spoilageRisk: 98,
     status: 'Spoiled',
     conditions: {
       idealTemp: [1, 3],
@@ -135,25 +154,25 @@ export const mockFoodItems: FoodItem[] = [
 
 export const mockAlerts: Alert[] = [
   {
-    id: 'a1',
-    storageId: 's3',
-    storageName: 'Local Farm Silo 1',
+    id: 'a-simba-01',
+    storageId: 's-simba-04',
+    storageName: 'Delivery Van #09',
     foodName: 'Baby Spinach',
     type: 'Spoilage',
     severity: 'Critical',
-    message: 'High gas levels detected. Potential spoilage in progress.',
+    message: 'High gas levels detected in Transit. Immediate action required for Delivery Van #09.',
     timestamp: new Date().toISOString(),
     resolved: false
   },
   {
-    id: 'a2',
-    storageId: 's2',
-    storageName: 'Transport Truck #42',
-    foodName: 'Fresh Milk',
-    type: 'Temperature',
+    id: 'a-simba-02',
+    storageId: 's-simba-03',
+    storageName: 'Gisenyi Hub Silo',
+    foodName: 'Bulk Grain',
+    type: 'Humidity',
     severity: 'Warning',
-    message: 'Temperature exceeded threshold (18.5°C).',
-    timestamp: new Date().toISOString(),
+    message: 'Humidity exceeded safe threshold (78%). Risk of mold development.',
+    timestamp: new Date(Date.now() - 3600000).toISOString(),
     resolved: false
   }
 ];
