@@ -1,181 +1,210 @@
 'use client';
 
 import Link from 'next/link';
-import {
-    Shield,
-    Sprout,
-    BarChart3,
-    Leaf,
-    Home,
-    Heart,
-    ArrowRight,
-    ChevronRight,
-    Database,
-    Smartphone,
-    Zap,
-    Globe
-} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Shield, BarChart3, Sprout, Globe, Target, Mail, Phone, MapPin, ChevronRight, CheckCircle2, Cpu, Zap, Radio, Database, Star } from 'lucide-react';
 
 export default function ServicesPage() {
-    const mainServices = [
+    const services = [
         {
-            title: "Smart Storage Monitoring",
-            tagline: "Molecular Freshness Control",
-            desc: "Our high-precision molecular sensors monitor ethylene, VOCs, and environmental variables in real-time. We provide the intelligence needed to prevent spoilage before it happens at the origin farms and silos.",
-            img: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2670&auto=format&fit=crop",
-            icon: Shield,
-            features: ["Ethylene Detection", "Temp/Humidity Logs", "Predictive Decay AI"]
+            title: "Molecular Freshness Sensing",
+            subtitle: "CHEMICAL INTELLIGENCE",
+            desc: "ALMA's proprietary gaseous sensor arrays detect the earliest chemical precursors to spoilage—Volatile Organic Compounds (VOCs) and Ethylene—at sub-nanoparticle concentrations (up to 10ppb). This allows for intervention days before visible decay occurs.",
+            img: "/molecular_sensing_service_1772604196407.png",
+            features: ["Gaseous Trace Detection", "Zero-Contact Scanning", "99.4% Precision Rate"]
         },
         {
-            title: "Food Delivery Tracking",
-            tagline: "Dynamic Cold Chain Intelligence",
-            desc: "Track every shipment across the global supply chain. Our devices ensure that the condition of your produce is maintained during the critical last-mile transit, with instant alerts if thresholds are breached.",
-            img: "https://images.unsplash.com/photo-1586864387917-f581490217ec?q=80&w=2670&auto=format&fit=crop",
-            icon: Sprout,
-            features: ["Live GPS Tracking", "Shock/Light Sensors", "Blockchain Verification"]
+            title: "Blockchain Condition Ledger",
+            subtitle: "IMMUTABLE AUDIT TRAIL",
+            desc: "Every environmental data point—temperature, humidity, atmospheric composition—is cryptographically hashed and recorded to a secure blockchain ledger. This creates an unalterable history of the shipment's integrity from origin to retail shelf.",
+            img: "/blockchain_logistics_service_1772604233837.png",
+            features: ["SHA-256 Data Integrity", "Smart Patent Tracking", "Transparent Origin Verification"]
         },
         {
-            title: "Household Management",
-            tagline: "Zero Waste Home Ecosystem",
-            desc: "Bringing industrial-grade molecular intelligence to the home kitchen. Our smart monitoring helps families manage their inventory, receive freshness alerts, and reduce domestic food waste efficiently.",
-            img: "https://images.unsplash.com/photo-1556911220-e15224bbafb0?q=80&w=2670&auto=format&fit=crop",
-            icon: Home,
-            features: ["Pantry Inventory", "Freshness Notifications", "Recipe Integration"]
+            title: "Automated Logistics Hub",
+            subtitle: "PREDICTIVE DISTRIBUTION",
+            desc: "Our neural networks process real-time freshness data to dynamically re-route inventory. If a batch is maturing faster than expected, ALMA automatically identifies the nearest high-demand market to ensure zero waste and maximum profit.",
+            img: "/automated_warehouse_hub_1772604286980.png",
+            features: ["Real-time Route Optimization", "Demand Forecasting", "Warehouse Automation Integration"]
         },
         {
-            title: "Food Donation System",
-            tagline: "Secure Surplus Redistribution",
-            desc: "Bridging the gap between surplus inventory and those in need. Our platform securely connects supermarkets and suppliers with verified NGOs, ensuring food reaches recipients while still perfectly fresh.",
-            img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2673&auto=format&fit=crop",
-            icon: Heart,
-            features: ["NGO Authentication", "Surplus Marketplace", "Tax Impact Reporting"]
+            title: "Community Surplus Sharing",
+            subtitle: "SOCIAL IMPACT ENGINE",
+            desc: "When produce reaches a critical shelf-life threshold and cannot be sold in traditional retail, ALMA's system triggers an immediate alert to a local network of food banks and community kitchens for rapid redistribution.",
+            img: "/community_surplus_sharing_1772604308410.png",
+            features: ["Automated Charity Matching", "Tax-Incentive Logging", "Rapid Logistics Response"]
         }
     ];
 
+    const [telemetry, setTelemetry] = useState({ tops: 0, latency: 0 });
+    const targetTelemetry = { tops: 402, latency: 11.2 };
+
+    useEffect(() => {
+        const duration = 2000;
+        const steps = 60;
+        const interval = duration / steps;
+        let currentStep = 0;
+
+        const timer = setInterval(() => {
+            currentStep++;
+            const progress = currentStep / steps;
+            setTelemetry({
+                tops: Math.floor(targetTelemetry.tops * progress),
+                latency: parseFloat((targetTelemetry.latency * progress).toFixed(1))
+            });
+
+            if (currentStep >= steps) {
+                clearInterval(timer);
+                startLiveUpdates();
+            }
+        }, interval);
+
+        return () => clearInterval(timer);
+    }, []);
+
+    const startLiveUpdates = () => {
+        const liveTimer = setInterval(() => {
+            setTelemetry({
+                tops: Math.floor(400 + Math.random() * 10),
+                latency: parseFloat((11 + Math.random() * 2).toFixed(1))
+            });
+        }, 2000);
+        return () => clearInterval(liveTimer);
+    };
+
     return (
-        <div className="bg-white min-h-screen font-[family-name:var(--font-jost)] pt-20">
-            {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center px-6 overflow-hidden">
-                <div className="absolute inset-0 bg-[#0d1f18]">
-                    <img
-                        src="https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=2670&auto=format&fit=crop"
-                        alt="Services Hero"
-                        className="w-full h-full object-cover opacity-30 grayscale"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0d1f18]/20 to-[#0d1f18]"></div>
-                </div>
+        <div className="bg-white min-h-screen font-[family-name:var(--font-jost)] relative overflow-hidden text-slate-900">
+            {/* Background Grain/Noise */}
+            <div className="fixed inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50"></div>
 
-                <div className="max-w-7xl mx-auto w-full relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-600/20 backdrop-blur-md text-green-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] border border-green-500/20 mb-8">
-                        ALMA TECHNOLOGY
+            {/* Unique Hero - Side-by-Side Layout */}
+            <section className="relative min-h-screen flex items-center px-6 pt-20 border-b border-slate-100 bg-white">
+                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                    <div className="relative z-10 space-y-10 text-left">
+                        <div className="inline-flex items-center gap-3 px-4 py-2 bg-green-500/10 border border-green-500/20 text-[#0a4a34] rounded-full text-[10px] font-black uppercase tracking-[0.4em]">
+                            <Cpu size={14} /> TECHNICAL SOLUTIONS
+                        </div>
+                        <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-none tracking-tighter uppercase italic-none">
+                            Operational <br />
+                            <span className="text-[#0a4a34]">Excellence.</span>
+                        </h1>
+                        <p className="text-xl text-slate-500 font-medium max-w-xl leading-relaxed">
+                            Beyond standard logistics—we provide a comprehensive molecular and digital infrastructure designed to eliminate systemic food waste.
+                        </p>
+                        <div className="flex flex-wrap gap-6">
+                            <Link href="/contact" className="px-10 py-5 bg-[#0a4a34] text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-[0_10px_40px_-10px_rgba(10,74,52,0.4)] hover:bg-[#0c5a3e] transition-all active:scale-95">
+                                Deploy Solution
+                            </Link>
+                            <a href="#services" className="px-10 py-5 bg-white border border-slate-200 text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2">
+                                Review Architecture <ChevronRight size={18} />
+                            </a>
+                        </div>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter mb-6">
-                        Our Premium <span className="text-green-500">Services.</span>
-                    </h1>
-                    <p className="text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
-                        Revolutionizing food security through molecular intelligence, blockchain transparency, and integrated logistics.
-                    </p>
+
+                    <div className="relative hidden lg:block">
+                        <div className="relative z-10 rounded-[60px] overflow-hidden border border-slate-200 shadow-2xl">
+                            <img 
+                                src="/molecular_tech_detail_1772604570463.png" 
+                                alt="ALMA Technology Detail" 
+                                className="w-full h-auto object-cover scale-110"
+                            />
+                            {/* Overlay UI elements - Keep dark for tech feel */}
+                            <div className="absolute top-10 right-10 p-6 bg-black/80 backdrop-blur-xl border border-white/10 rounded-3xl space-y-2">
+                                <div className="flex items-center gap-2 text-green-400">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Sensor Node Active</span>
+                                </div>
+                                <p className="text-white text-lg font-black tracking-tighter uppercase tabular-nums">VOC Detected: 12ppb</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* Services Grid */}
-            <section className="py-24 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="space-y-32">
-                        {mainServices.map((service, i) => (
-                            <div key={i} className={`flex flex-col lg:flex-row items-center gap-20 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                                {/* Image Section */}
-                                <div className="w-full lg:w-1/2 relative">
-                                    <div className="aspect-[4/5] rounded-[60px] overflow-hidden relative group">
-                                        <img
-                                            src={service.img}
-                                            alt={service.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                                        <div className="absolute bottom-10 left-10">
-                                            <div className="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center text-white border border-white/20">
-                                                <service.icon size={32} />
-                                            </div>
+            {/* Core Services - Alternating Staggered Sections */}
+            <section id="services" className="px-6 py-32 space-y-40 bg-white relative z-10">
+                {services.map((service, i) => (
+                    <div key={i} className={`max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                        <div className={`space-y-8 ${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
+                            <div className="space-y-4">
+                                <span className="text-xs font-black text-[#0a4a34] uppercase tracking-[0.5em]">{service.subtitle}</span>
+                                <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-none italic-none">{service.title}</h2>
+                            </div>
+                            <p className="text-slate-500 text-lg leading-relaxed font-medium">
+                                {service.desc}
+                            </p>
+                            <div className="grid grid-cols-1 gap-4">
+                                {service.features.map((feat, fi) => (
+                                    <div key={fi} className="flex items-center gap-3 text-slate-900 font-bold text-sm tracking-tight">
+                                        <div className="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center text-[#0a4a34]">
+                                            <CheckCircle2 size={14} />
                                         </div>
+                                        {feat}
                                     </div>
-                                    {/* Decorative element */}
-                                    <div className={`absolute -z-10 w-full h-full border-2 border-slate-100 rounded-[60px] translate-x-8 translate-y-8 hidden md:block`}></div>
-                                </div>
-
-                                {/* Content Section */}
-                                <div className="w-full lg:w-1/2 space-y-8">
-                                    <div className="space-y-2">
-                                        <span className="text-sm font-black text-green-600 uppercase tracking-[0.3em]">{service.tagline}</span>
-                                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-none tracking-tighter">{service.title}</h2>
-                                    </div>
-                                    <p className="text-xl text-slate-500 font-medium leading-relaxed">
-                                        {service.desc}
-                                    </p>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {service.features.map((feature, idx) => (
-                                            <div key={idx} className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-green-600 hover:text-white transition-all cursor-default">
-                                                <div className="w-2 h-2 rounded-full bg-green-500 group-hover:bg-white shrink-0"></div>
-                                                <span className="text-sm font-bold uppercase tracking-widest">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <button className="px-10 py-5 bg-[#1a1a1a] text-white rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] shadow-xl hover:bg-green-600 transition-all flex items-center gap-4">
-                                        Learn Technical Details <ChevronRight size={18} />
-                                    </button>
-                                </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+
+                        <div className={`relative group ${i % 2 !== 0 ? 'lg:order-1' : ''}`}>
+                            <div className="aspect-video lg:aspect-square bg-slate-50 rounded-[60px] overflow-hidden border border-slate-100 relative shadow-inner">
+                                <img src={service.img} alt={service.title} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent"></div>
+                                <div className="absolute bottom-10 left-10 text-slate-900 font-black text-4xl opacity-5 uppercase tracking-tighter tabular-nums">{String(i + 1).padStart(2, '0')}</div>
+                            </div>
+                            {/* Decorative Corners */}
+                            <div className="absolute -top-4 -right-4 w-20 h-20 border-t-2 border-r-2 border-green-500/20 rounded-tr-[40px] group-hover:border-[#0a4a34] transition-colors"></div>
+                            <div className="absolute -bottom-4 -left-4 w-20 h-20 border-b-2 border-l-2 border-green-500/20 rounded-bl-[40px] group-hover:border-[#0a4a34] transition-colors"></div>
+                        </div>
                     </div>
-                </div>
+                ))}
             </section>
 
-            {/* Tech Stack / Capabilities */}
-            <section className="py-24 bg-slate-50 border-y border-slate-100 px-6">
+            {/* Technical Capabilities Grid */}
+            <section className="px-6 py-32 bg-slate-50 relative border-y border-slate-100">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-20">
-                        <h2 className="text-4xl font-black text-slate-900 tracking-tighter uppercase mb-4">The ALMA Edge</h2>
-                        <p className="text-slate-500 font-medium max-w-xl mx-auto">Our unique combination of hardware and software sets the standard for food safety.</p>
+                    <div className="text-center mb-24 space-y-4">
+                        <span className="text-[10px] font-black text-[#0a4a34] uppercase tracking-[0.5em]">System Architecture</span>
+                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight uppercase leading-none italic-none">Technical Specifications</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {[
-                            { title: "Molecular Sensors", icon: Zap, color: "text-amber-500" },
-                            { title: "Blockchain Verification", icon: Database, color: "text-blue-500" },
-                            { title: "Global Connectivity", icon: Globe, color: "text-green-500" },
-                            { title: "Mobile Accessibility", icon: Smartphone, color: "text-purple-500" }
-                        ].map((item, i) => (
-                            <div key={i} className="flex flex-col items-center text-center space-y-6">
-                                <div className="w-20 h-20 bg-white rounded-[32px] shadow-xl shadow-slate-200/50 flex items-center justify-center">
-                                    <item.icon size={36} className={item.color} />
+                            { title: "Edge Processing", desc: `Sensors perform ${telemetry.tops} TOPS of AI compute locally.`, icon: Radio },
+                            { title: "Satellite Uplink", desc: "Global connectivity via Starlink integrated nodes.", icon: Globe },
+                            { title: "Quantum Encryption", desc: "Military-grade encryption for proprietary data.", icon: Shield },
+                            { title: "Real-time Dashboard", desc: `Latency under ${telemetry.latency}ms for global storage network.`, icon: Zap }
+                        ].map((cap, i) => (
+                            <div key={i} className="p-10 bg-white border border-slate-100 rounded-[40px] hover:bg-green-600/5 hover:border-[#0a4a34]/30 transition-all group shadow-sm hover:shadow-xl">
+                                <div className="w-12 h-12 bg-green-600/10 text-[#0a4a34] rounded-xl flex items-center justify-center mb-8 border border-green-500/10 group-hover:bg-[#0a4a34] group-hover:text-white transition-all">
+                                    <cap.icon size={24} />
                                 </div>
-                                <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight leading-tight px-4">{item.title}</h3>
+                                <h3 className="text-xl font-black text-slate-900 mb-4 uppercase tracking-tighter">{cap.title}</h3>
+                                <p className="text-slate-500 text-sm font-medium leading-relaxed">{cap.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-32 px-6">
-                <div className="max-w-5xl mx-auto bg-green-600 rounded-[60px] p-12 md:p-24 text-center space-y-10 relative overflow-hidden isolate shadow-2xl shadow-green-600/40">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 -z-10 blur-3xl"></div>
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/2 -z-10 blur-2xl"></div>
+            {/* CTA Section - Sophisticated Deep Green */}
+            <section className="py-32 px-6 bg-white">
+                <div className="max-w-6xl mx-auto bg-[#0a4a34] rounded-[80px] p-12 md:p-32 text-center space-y-12 relative overflow-hidden isolate shadow-2xl">
+                    {/* Decorative Elements */}
+                    <div className="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-[100px]"></div>
+                    <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-black/20 rounded-full blur-[100px]"></div>
 
-                    <h2 className="text-4xl md:text-6xl font-black text-white leading-none tracking-tighter">Ready to protect <br /> your ecosystem?</h2>
-                    <p className="text-white/80 text-xl font-medium max-w-xl mx-auto">Join the global network of suppliers and supermarkets using ALMA today.</p>
-                    <div className="flex flex-wrap justify-center gap-6 pt-4">
-                        <Link
-                            href="/signup"
-                            className="px-12 py-6 bg-white text-green-700 rounded-2xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-slate-50 transition-all shadow-2xl active:scale-95"
-                        >
-                            Get Started Now
-                        </Link>
+                    <h2 className="text-5xl md:text-8xl font-black text-white leading-none tracking-tighter uppercase italic-none">
+                        Ready to <br /> Integrate?
+                    </h2>
+                    <p className="text-white/80 text-xl font-medium max-w-xl mx-auto">
+                        Speak with our engineering team to deploy ALMA's molecular intelligence in your supply chain infrastructure.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-6 pt-8">
                         <Link
                             href="/contact"
-                            className="px-12 py-6 bg-transparent border-2 border-white/30 text-white rounded-2xl font-black text-[14px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all active:scale-95"
+                            className="px-14 py-7 bg-white text-[#0a4a34] rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-slate-100 transition-all active:scale-95"
                         >
-                            Contact Sales
+                            Contact Engineering
                         </Link>
                     </div>
                 </div>

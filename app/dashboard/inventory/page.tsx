@@ -223,8 +223,8 @@ export default function InventoryPage() {
                                     <td className="py-6 px-8">
                                         <div className="flex items-center gap-4">
                                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${item.status === 'Fresh' ? 'bg-green-100 text-green-600 scale-100' :
-                                                    item.status === 'At Risk' ? 'bg-orange-100 text-orange-600' :
-                                                        'bg-red-600 text-white shadow-lg shadow-red-200 animate-pulse'
+                                                item.status === 'At Risk' ? 'bg-orange-100 text-orange-600' :
+                                                    'bg-red-600 text-white shadow-lg shadow-red-200 animate-pulse'
                                                 }`}>
                                                 <Package size={22} />
                                             </div>
@@ -236,12 +236,12 @@ export default function InventoryPage() {
                                     </td>
                                     <td className="py-6 px-8">
                                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${item.status === 'Fresh' ? 'bg-green-50 text-green-700' :
-                                                item.status === 'At Risk' ? 'bg-orange-50 text-orange-700' :
-                                                    'bg-red-50 text-red-700'
+                                            item.status === 'At Risk' ? 'bg-orange-50 text-orange-700' :
+                                                'bg-red-50 text-red-700'
                                             }`}>
                                             <div className={`w-1.5 h-1.5 rounded-full ${item.status === 'Fresh' ? 'bg-green-500' :
-                                                    item.status === 'At Risk' ? 'bg-orange-500' :
-                                                        'bg-red-500'
+                                                item.status === 'At Risk' ? 'bg-orange-500' :
+                                                    'bg-red-500'
                                                 }`} />
                                             {item.status}
                                         </div>
@@ -309,8 +309,8 @@ export default function InventoryPage() {
                                     key={page}
                                     onClick={() => handlePageChange(page)}
                                     className={`w-10 h-10 rounded-xl text-xs font-black transition-all ${currentPage === page
-                                            ? 'bg-[#1a3a2e] text-white shadow-xl shadow-black/20 scale-110'
-                                            : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-100'
+                                        ? 'bg-[#1a3a2e] text-white shadow-xl shadow-black/20 scale-110'
+                                        : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-100'
                                         }`}
                                 >
                                     {page}

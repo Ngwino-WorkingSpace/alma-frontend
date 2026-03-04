@@ -50,7 +50,7 @@ export default function ItemDetailsPage() {
                                     {item.category}
                                 </span>
                                 <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${item.status === 'Fresh' ? 'bg-emerald-500 text-white' :
-                                        item.status === 'At Risk' ? 'bg-amber-500 text-white' : 'bg-red-500 text-white'
+                                    item.status === 'At Risk' ? 'bg-amber-500 text-white' : 'bg-red-500 text-white'
                                     }`}>
                                     {item.status}
                                 </span>
@@ -79,7 +79,7 @@ export default function ItemDetailsPage() {
                             <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden">
                                 <div
                                     className={`h-full transition-all duration-1000 ${item.spoilageRisk > 80 ? 'bg-red-500' :
-                                            item.spoilageRisk > 40 ? 'bg-amber-500' : 'bg-emerald-500'
+                                        item.spoilageRisk > 40 ? 'bg-amber-500' : 'bg-emerald-500'
                                         }`}
                                     style={{ width: `${item.spoilageRisk}%` }}
                                 ></div>
