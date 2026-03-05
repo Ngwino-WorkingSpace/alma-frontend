@@ -65,13 +65,13 @@ export default function AboutPage() {
 
             {/* Hero Section */}
             <section className="relative min-h-[70vh] flex items-center justify-center px-6 pt-20 text-center">
-                <div className="absolute inset-0 bg-[#0a1a14] overflow-hidden">
+                <div className="absolute inset-0 bg-[#01110a] overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2670&auto=format&fit=crop"
                         alt="About Hero"
                         className="w-full h-full object-cover opacity-40 grayscale"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a14]/60 via-[#0a1a14]/90 to-[#0a1a14]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#01110a]/60 via-[#01110a]/90 to-[#01110a]"></div>
                 </div>
 
                 <div className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center">

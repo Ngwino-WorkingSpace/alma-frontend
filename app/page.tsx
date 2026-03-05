@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ShoppingCart, Leaf, Sprout, Tractor, Shovel, ChevronRight, Star, Shield, BarChart3, Home, Heart, Send, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowRight, ShoppingCart, Leaf, Sprout, Tractor, Shovel, ChevronRight, Star, Shield, BarChart3, Home, Heart, Send, Mail, Phone, MapPin, Cpu, Database, Radio } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -13,15 +13,15 @@ export default function HomePage() {
         </span>
       </div>
 
-      {/* Hero Section - Deep Solid Forest Green */}
-      <section className="relative min-h-[75vh] flex items-center justify-center px-6 pt-20 text-center">
-        <div className="absolute inset-0 bg-[#0a2118] overflow-hidden">
+      {/* Hero Section - Deeper Midnight Forest Green */}
+      <section className="relative min-h-[75vh] flex items-center justify-center px-6 pt-20 text-center bg-[#01110a]">
+        <div className="absolute inset-0 bg-[#01110a] overflow-hidden">
           <img
             src="/hero.png"
             alt="Farm Hero"
             className="w-full h-full object-cover opacity-30 mix-blend-multiply"
           />
-          <div className="absolute inset-0 bg-[#0a2118]/60"></div>
+          <div className="absolute inset-0 bg-[#01110a]/60"></div>
         </div>
 
         <div className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center">
@@ -45,89 +45,101 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 1. Our Premium Services - Enlarged Circles & Refined Images */}
-      <section className="px-6 py-32 bg-[var(--background)] relative overflow-hidden border-t border-[var(--border)]">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-32 flex flex-col items-center">
-            <div className="inline-flex items-center px-8 py-3.5 bg-[#0a4a34] text-white rounded-2xl text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl shadow-green-900/30 mb-10">
-              Our Premium Services
-            </div>
-            <h2 className="text-5xl md:text-7xl font-black text-[var(--foreground)] leading-[1] tracking-tighter mb-8 uppercase italic-none">
-              We follow <span className="text-[#0a4a34]">Advanced</span> <br />
-              Food Logistics.
-            </h2>
-            <p className="text-lg text-[var(--muted-foreground)] font-medium max-w-xl text-center leading-relaxed">
-              Unrivaled expertise in molecular sensor technology and real-time intelligence at every touchpoint of the supply chain.
-            </p>
+      {/* 2. Premium Services - Zig-Zag Interconnected Design */}
+      <section className="px-6 py-40 bg-[var(--background)] relative z-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-32 space-y-4">
+            <span className="text-[10px] font-black text-[#0a4a34] uppercase tracking-[0.5em]">The ALMA Lifecycle</span>
+            <h2 className="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tighter leading-none uppercase">End-to-End <br />Intelligence.</h2>
           </div>
 
-          <div className="relative w-full">
-            {/* Curved Path SVG */}
-            <div className="absolute top-[20%] left-0 w-full h-full pointer-events-none hidden lg:block">
-              <svg width="100%" height="400" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path
-                  d="M100 200 C 300 200, 350 400, 600 200 C 850 0, 900 200, 1100 200"
-                  stroke="var(--primary)"
-                  strokeWidth="3"
-                  strokeDasharray="12 12"
-                  opacity="0.2"
-                />
-              </svg>
-            </div>
+          <div className="relative pb-24">
+            {/* SVG Connecting Lines - Zig Zag Path */}
+            <svg className="absolute top-0 left-0 w-full h-full hidden lg:block pointer-events-none opacity-40" viewBox="0 0 1200 400" fill="none" preserveAspectRatio="none">
+              <path
+                d="M150,150 L450,300 L750,150 L1050,300"
+                stroke="#22c55e"
+                strokeWidth="2"
+                strokeDasharray="8 8"
+                className="animate-[dash_20s_linear_infinite]"
+              />
+            </svg>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-0 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-10">
               {[
                 {
+                  num: 1,
                   title: "Smart Storage Monitoring",
                   desc: "Precision sensors for molecular freshness tracking at origin farms.",
-                  img: "/smart_storage.png",
-                  y: "lg:translate-y-[80px]"
+                  img: "/molecular_sensing_service_1772604196407.png",
+                  offset: "lg:-translate-y-16"
                 },
                 {
+                  num: 2,
                   title: "Food Delivery Tracking",
-                  desc: "Active condition monitoring during transit phases. Blockchain-powered security.",
-                  img: "/smart_logistics.png",
-                  y: "lg:translate-y-[210px]"
+                  desc: "Real-time monitoring of perishable goods throughout the delivery chain for peak quality.",
+                  img: "/food_delivery_tracking_service_1772696134738.png",
+                  offset: "lg:translate-y-16"
                 },
                 {
+                  num: 3,
                   title: "Household Management",
                   desc: "Bringing molecular intelligence to every home kitchen for zero waste.",
-                  img: "/smart_kitchen.png",
-                  y: "lg:translate-y-[10px]"
+                  img: "/household_management_service_alma_1772696231430.png",
+                  offset: "lg:-translate-y-16"
                 },
                 {
+                  num: 4,
                   title: "Food Donation System",
-                  desc: "Bridging the gap securely between surplus inventory and community needs.",
-                  img: "/food_donation.png",
-                  y: "lg:translate-y-[160px]"
+                  desc: "Bridging the gap securely between surplus inventory and communities in need.",
+                  img: "/community_surplus_sharing_1772604308410.png",
+                  offset: "lg:translate-y-16"
                 }
               ].map((s, i) => (
-                <div key={i} className={`flex flex-col items-center group ${s.y} transition-all duration-700`}>
-                  <div className="relative mb-8">
-                    <div className="w-56 h-56 lg:w-64 lg:h-64 rounded-full border-[10px] border-[var(--background)] p-1 group-hover:scale-105 transition-transform duration-700 shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-[var(--card)] overflow-hidden">
-                      <div className="w-full h-full rounded-full overflow-hidden relative isolate">
-                        <img src={s.img} alt={s.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
-                        <div className="absolute inset-0 bg-green-900/10 group-hover:bg-transparent transition-colors"></div>
+                <div key={i} className={`flex flex-col items-center text-center space-y-8 group ${s.offset} transition-transform duration-700`}>
+                  {/* Circle Hub - Clickable to Services */}
+                  <div className="relative w-64 h-64">
+                    <Link href="/services" className="block w-full h-full relative z-10 rounded-full">
+                      <div className="absolute inset-0 rounded-full bg-[var(--card)] border-[12px] border-[var(--background)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden group-hover:scale-105 transition-transform duration-500 z-10">
+                        <img
+                          src={s.img}
+                          alt={s.title}
+                          className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)]/20 to-transparent"></div>
                       </div>
-                    </div>
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-12 bg-[#0a4a34] text-white rounded-full flex items-center justify-center font-black text-lg z-20 shadow-2xl border-4 border-[var(--background)] tabular-nums">
-                      {i + 1}
+                    </Link>
+
+                    {/* Number Badge */}
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-12 bg-[#22c55e] border-4 border-[var(--background)] rounded-full flex items-center justify-center text-white font-black text-xl z-20 shadow-lg">
+                      {s.num}
                     </div>
                   </div>
-                  <div className="text-center space-y-3 px-6">
-                    <h3 className="text-2xl font-black text-[var(--foreground)] uppercase tracking-tighter leading-tight max-w-[200px] mx-auto group-hover:text-[#0a4a34] transition-colors italic-none">{s.title}</h3>
-                    <p className="text-[11px] font-bold text-[var(--muted-foreground)] uppercase tracking-[0.2em] leading-relaxed max-w-[200px] mx-auto">{s.desc}</p>
+
+                  <div className="space-y-4 max-w-[240px]">
+                    <h3 className="text-xl font-black text-[var(--foreground)] uppercase tracking-tighter leading-tight italic-none">
+                      {s.title}
+                    </h3>
+                    <p className="text-[var(--muted-foreground)] text-[10px] font-bold leading-relaxed uppercase tracking-[0.15em] opacity-80">
+                      {s.desc}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
+
+        <style jsx>{`
+          @keyframes dash {
+            to {
+              stroke-dashoffset: -1000;
+            }
+          }
+        `}</style>
       </section>
 
-      
-
-      {/* 2. The ALMA Ecosystem */}
+      {/* 3. The ALMA Ecosystem - Compact Title */}
       <section className="px-6 py-32 bg-[var(--background)] relative border-b border-[var(--border)]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20 space-y-3">

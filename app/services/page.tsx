@@ -78,24 +78,24 @@ export default function ServicesPage() {
             <div className="fixed inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50"></div>
 
             {/* Unique Hero - Side-by-Side Layout */}
-            <section className="relative min-h-screen flex items-center px-6 pt-20 border-b border-[var(--border)] bg-[var(--background)]">
+            <section className="relative min-h-screen flex items-center px-6 pt-20 border-b border-[var(--border)] bg-[#01110a]">
                 <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <div className="relative z-10 space-y-10 text-left">
                         <div className="inline-flex items-center gap-3 px-4 py-2 bg-green-500/10 border border-green-500/20 text-[#0a4a34] rounded-full text-[10px] font-black uppercase tracking-[0.4em]">
                             <Cpu size={14} /> TECHNICAL SOLUTIONS
                         </div>
-                        <h1 className="text-6xl md:text-8xl font-black text-[var(--foreground)] leading-none tracking-tighter uppercase italic-none">
+                        <h1 className="text-6xl md:text-8xl font-black text-white leading-none tracking-tighter uppercase italic-none">
                             Operational <br />
-                            <span className="text-[#0a4a34]">Excellence.</span>
+                            <span className="text-green-500">Excellence.</span>
                         </h1>
-                        <p className="text-xl text-[var(--muted-foreground)] font-medium max-w-xl leading-relaxed">
+                        <p className="text-xl text-slate-100 font-medium max-w-xl leading-relaxed">
                             Beyond standard logistics—we provide a comprehensive molecular and digital infrastructure designed to eliminate systemic food waste.
                         </p>
                         <div className="flex flex-wrap gap-6">
                             <Link href="/contact" className="px-10 py-5 bg-[#0a4a34] text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-[0_10px_40px_-10px_rgba(10,74,52,0.4)] hover:bg-[#0c5a3e] transition-all active:scale-95">
                                 Deploy Solution
                             </Link>
-                            <a href="#services" className="px-10 py-5 bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-[var(--muted)] transition-all flex items-center gap-2">
+                            <a href="#services" className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white/20 transition-all flex items-center gap-2">
                                 Review Architecture <ChevronRight size={18} />
                             </a>
                         </div>
